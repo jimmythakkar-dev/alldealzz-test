@@ -1,0 +1,65 @@
+app_name: Development
+
+main_uri: http://localhost:3000
+
+email:
+  username: booking@alldealzz.com
+  password: book@ad2016!
+
+otp_email:
+  username: otp@alldealzz.com
+  password: otp@ad2016!
+
+mail:
+  contact_us: info@alldealzz.com
+  bookings: bookings@alldealzz.com
+  support: support@alldealzz.com
+
+payu:
+  key: gtKFFx
+  salt: eCwWELxi
+  redirect_url: http://192.168.2.100:1234/payu/callbacks/deal_payment
+
+paytm:
+  merchant_id: Appnxt49338882884688
+  merchant_key: h0qQ72nH4XGY!Abg
+  industry_type_id: Retail
+  website: APP_STAGING
+  channel_id: WAP
+  chksum_generate_url: http://192.168.2.100:1234/paytm/callbacks/generate_checksum
+  chksum_verify_url: http://alldealzz-live.herokuapp.com/paytm/callbacks/verify_checksum
+
+stripe:
+  publishable_key: pk_test_UDjuzb2bOuwm5LyjICPv6hEL
+  secret_key: sk_test_yoEjzWk13z65SZPD0TlbhDFj
+
+doorkeeper_api: 
+  name: alldealzz-api
+  redirect_uri: http://localhost:3000/
+  client_id: 182ee09c84c071e8512da99279dfba7b5861b0b8ee40e7b996183694165cce66
+  client_secret: 72287860b769e141dff7a1103692c10db836500542a8b91a66d7f5a92f00c6dc
+
+push_notification:
+  apple:
+    end_user_app:
+      apns_dev_cert: config/certificates/end_user_app/AllDealzz_Dev.pem
+      apns_prod_cert: config/certificates/end_user_app/com.aor.fandy.prod.pem
+    merchant_app:
+      apns_dev_cert: config/certificates/merchant_app/ADMerchant_prod.pem
+      apns_prod_cert: config/certificates/merchant_app/ADMerchant_prod.pem
+    passphrase: 'AllDealzz1234'
+
+  google:
+    end_user_app:
+      gcm_key: AIzaSyDanP73hJT2HfrLt14vxkbw-O03AiWgbQA
+    merchant_app:  
+      gcm_key: AIzaSyAAkarDLwtbO7CJFqtzznOa0nIZBB8_xIw
+
+google_api_key: AIzaSyDt3pbFrntK8nkHbuMnQkJyMAmSaVBtwRM
+
+api:
+  v1:
+    share_url: http://alldealzz.com
+
+mailchimp:
+  api_key: a917e057373df61d5298dfa9e3723f23-us15

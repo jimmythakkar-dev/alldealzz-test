@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  # For details on connection pooling, see rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: 5
+  username: postgres
+  password: root
+
+development:
+  <<: *default
+  database: alldealzz_laptop
+
+production:
+  <<: *default
+  database: alldealzz_laptop
+
+test:
+  <<: *default
+  database: alldealzz_test

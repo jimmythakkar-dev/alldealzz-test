@@ -1,0 +1,65 @@
+app_name: All Dealzz
+
+main_uri: https://alldealzz-uk.herokuapp.com/
+
+email:
+  username: purchase.uk@alldealzz.com
+  password: ad@uk2017!
+
+otp_email:
+  username: otp@alldealzz.com
+  password: otp@ad2016!
+
+mail:
+  contact_us: info.uk@alldealzz.com
+  bookings: bookings.uk@alldealzz.com
+  support: support.uk@alldealzz.com
+
+payu:
+  key: fEYwaZ
+  salt: CVVoZ9Au
+  redirect_url: http://alldealzz-live.herokuapp.com/payu/callbacks/deal_payment
+
+paytm:
+  merchant_id: Appnxt20366565013870
+  merchant_key: ghx4!n2T#fG%e8w5
+  industry_type_id: Retail109
+  website: AppnxtIdeasWAP
+  channel_id: WAP
+  chksum_generate_url: http://alldealzz-live.herokuapp.com/paytm/callbacks/generate_checksum
+  chksum_verify_url: http://alldealzz-live.herokuapp.com/paytm/callbacks/verify_checksum
+
+stripe:
+  publishable_key: pk_live_zgmGMKcVaucN6xdlOEFE51qI
+  secret_key: sk_live_4ZiccK5Wyy4FXD7BBo5bDtyr
+
+doorkeeper_api: 
+  name: alldealzz-api
+  redirect_uri: https://alldealzz-uk.herokuapp.com
+  client_id: 182ee09c84c071e8512da99279dfba7b5861b0b8ee40e7b996183694165cce66
+  client_secret: 72287860b769e141dff7a1103692c10db836500542a8b91a66d7f5a92f00c6dc
+
+push_notification:
+  apple:
+    end_user_app:
+      apns_dev_cert: config/certificates/end_user_app/com.aor.fandy.dev.pem
+      apns_prod_cert: config/certificates/end_user_app/LokalyteDis.pem
+    merchant_app:
+      apns_dev_cert: config/certificates/merchant_app/ADMerchant_prod.pem
+      apns_prod_cert: config/certificates/merchant_app/ADMerchant_prod.pem
+    passphrase: 'AD123456'
+
+  google:
+    end_user_app:
+      gcm_key: AIzaSyDanP73hJT2HfrLt14vxkbw-O03AiWgbQA
+    merchant_app:  
+      gcm_key: AIzaSyAAkarDLwtbO7CJFqtzznOa0nIZBB8_xIw
+
+google_api_key: AIzaSyDt3pbFrntK8nkHbuMnQkJyMAmSaVBtwRM
+
+api:
+  v1:
+    share_url: http://alldealzz.com
+
+mailchimp:
+  api_key: a917e057373df61d5298dfa9e3723f23-us15

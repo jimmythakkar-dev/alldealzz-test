@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-5">
+  <% url = if @sub_deal_category.new_record?
+      deal_category_sub_deal_categories_path(@deal_category) 
+    else
+      deal_category_sub_deal_category_path(@deal_category, @sub_deal_category)
+    end  
+  %>
+  <%= form_for(@sub_deal_category, url: url, html: {class: "form-horizontal"}) do |f| %>
+    <%= render "shared/error_messages", target: @sub_deal_category %> 
+    
+    <div class="form-group">
+      <%= f.label :name, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.text_field :name, class: "form-control" %>
+      </div>  
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= f.submit 'Submit', class: "btn btn-default" %>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<div class="row title_header">
+  <div class="col-md-8">
+    <%= title_header(@merchant_user, "Merchant Users") %>
+  </div>
+  <div class="col-md-3 actions">
+    <%= link_to 'New Merchant User', new_merchant_user_path, class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= merchant_user_breadcrumb_list(nil, 'Merchant Users') %>
+</ol>
+
+<div class="merchant_users_list">
+  <%= render 'merchant_users/listing/list', merchant_users: @merchant_users %>
+</div>

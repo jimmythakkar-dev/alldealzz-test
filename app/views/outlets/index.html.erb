@@ -1,0 +1,29 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Outlets") %></div>
+  <div class="col-md-3 actions">
+    <%= link_to 'New Outlet', new_store_outlet_path(@store), class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= outlet_breadcrumb_list(nil, 'Outlets') %>
+</ol>
+
+<div class="table-responsive">
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Locality</th>
+        <th>Manager Phone Number</th>
+        <th>App Phone Number</th>
+        <th class="action">Status</th>
+        <th class="action">Action</th>
+      </tr>
+    </thead>
+    
+    <tbody class="tbody-list">
+      <%= render 'list', outlets: @outlets, store: @store %>
+    </tbody>
+  </table>
+</div>

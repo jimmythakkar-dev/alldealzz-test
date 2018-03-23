@@ -1,0 +1,120 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('.form-control.editor').each(function(i, elem) {
+      $(elem).wysihtml5();
+    });
+    
+    view_last_minute_deal_input();
+    $('input.is_last_minute_deal').change(function(){ 
+      view_last_minute_deal_input();
+    });
+
+    $('#price_allowed').change(function(){
+      if(this.checked) {
+        $('.price-unallowed').show(); $('.price-allowed').show();
+      }
+      else {
+        $('.price-unallowed').hide(); $('.price-allowed').hide();
+      }
+    });
+
+    function view_last_minute_deal_input() {
+      if($('input.is_last_minute_deal:checked').val() == <%= Deal::DealType[:lmd] %>) {
+        $('.last_minute_deal_is_true').show(); $('.last_minute_deal_is_false').hide();
+      } else {
+        $('.last_minute_deal_is_true').hide(); $('.last_minute_deal_is_false').show();
+      }
+    }
+  });
+</script>
+
+<%= form_for([@store, @deal], html: { multipart: true, class: "form-horizontal deal_form"}) do |f| %>
+<%= render "shared/error_messages", target: @deal %> 
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :main_line, class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+        <%= f.text_field :main_line, class: "form-control" %>
+      </div>  
+    </div>
+    <div class="form-group">
+      <%= f.label :termsandconditions, 'Terms & Conditions',class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+        <%= f.text_area :termsandconditions, rows: 5, class: "form-control" %>
+      </div>  
+    </div>
+    <div class="form-group">
+      <%= f.label :features, 'Features',class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+        <%= f.text_area :features, rows: 5, class: "form-control" %>
+      </div>  
+    </div>
+    <div class="form-group">
+      <%= f.label :max_bookings, 'Max bookings per user',class: "col-sm-3 control-label" %>
+      <div class="col-sm-4">
+        <%= f.text_field :max_bookings, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :max_quantity, 'Total Quantity',class: "col-sm-3 control-label" %>
+      <div class="col-sm-4">
+        <%= f.text_field :max_quantity, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :quantity_per_user, 'Quantity Per User',class: "col-sm-3 control-label" %>
+      <div class="col-sm-4">
+        <%= f.text_field :quantity_per_user, class: "form-control" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :deal_type, class: "col-sm-3 control-label" %>
+      <div class="col-sm-9">
+        <label class="checkbox-inline">
+          <%= f.radio_button :deal_type, Deal::DealType[:rd], class: 'is_last_minute_deal' %> Regular
+        </label>
+        <label class="checkbox-inline">
+          <%= f.radio_button :deal_type, Deal::DealType[:lmd], class: 'is_last_minute_deal' %> Last Minute
+        </label>
+        <label class="checkbox-inline">
+          <%= f.radio_button :deal_type, Deal::DealType[:pd], class: 'is_last_minute_deal' %> Paid
+        </label>
+      </div>  
+    </div>
+  </div>
+
+  <%= render "deals/input_template/price", f: f, price_fields_allowed: @deal.price.present? %>
+  <div class="input_last_minute_deal last_minute_deal_is_true">
+    <hr></hr>
+    <%= render "deals/input_template/last_minute_deal", f: f %> 
+  </div>
+  <div class="input_outlet">
+    <hr></hr>
+    <%= render "deals/input_template/outlets", f: f, outlets: @outlets %> 
+  </div>
+</div>
+
+<div class="input_image">
+  <hr></hr>
+  <%= render "deals/input_template/image", f: f %>
+</div>
+
+<div class="input_age_and_date">
+  <hr></hr>
+  <%= render "deals/input_template/age_and_date", f: f %> 
+</div>
+
+<div class="input_notification">
+  <hr></hr>
+  <%= render "deals/input_template/notification", f: f %> 
+</div>
+
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+  
+    <%= f.submit 'Submit', class: "btn btn-default" %>
+  </div>
+</div>
+<% end %>

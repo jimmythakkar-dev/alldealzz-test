@@ -1,0 +1,71 @@
+<div class="row title_header">
+	<div class="col-md-8">
+		<%= title_header(@end_user, "End User") %>
+	</div>
+</div>
+<ol class="breadcrumb">
+	<%= end_user_breadcrumb_list(@end_user, 'End User Information') %>
+</ol>
+<div class="panel panel-default">
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-11">
+				<h4>End User :  <span class="label label-default"><%= @end_user.name.capitalize %></span></h4>
+			</div>  
+		</div>
+	</div>
+	<div class="panel-footer">
+		<div class="row">
+			<div class="col-md-6">
+				<p>
+					<strong>Name:</strong>
+					<%= @end_user.name %>
+				</p>
+				<p>
+					<strong>Phone Number:</strong>
+					<%= @end_user.phone_number %>
+				</p>
+				<p>
+					<strong>Email:</strong>
+					<%= @end_user.email %>
+				</p>
+				<p>
+					<strong>Age:</strong>
+					<%= @end_user.age %>
+				</p>
+				<p>
+					<strong>Gender:</strong>
+					<%= @end_user.gender %>
+				</p>
+				<p>
+					<strong>Points:</strong>
+					<%= @end_user.end_user_reward_point.present? ? @end_user.end_user_reward_point.points.round(2) : 0 %>
+				</p>
+				<p>
+					<strong>Email verification:</strong>
+					<%= @end_user.otp_verified? ? 'Yes' : 'No' %>
+				</p>
+				<p>
+					<strong>Block User:</strong>
+					<%= @end_user.black_listed %>
+					<%= link_to 'Block/Unblock', block_user_end_user_path(:action=>"block_user", end_user_id: @end_user.id), method: :post, data: {confirm: "Are you  want sure block this User?"}, class: 'btn btn-danger btn-sm' %>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function () {
+    input_button_on_off_change($('input.button-on-off'), 'block_user');
+	});
+  function input_button_on_off_change(element, method) {
+    element.bootstrapToggle();
+    element.change(function(){
+      $.ajax({
+        type: "POST",
+        url: "/end_users/"+$(this).val()+"/"+method,
+        data: { page: <%= params[:page] || 1 %> }
+      });
+    });
+  }
+</script>

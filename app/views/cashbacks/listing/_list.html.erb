@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= paginate cashbacks, :params => { controller: :cashbacks, action: :index }, remote: true %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Cashback Type</th>
+        <th>Text</th>
+        <th>Cashback(%)</th>
+        <th>Code</th>
+        <th>Points</th>
+        <th>Allowed</th>
+        <th class="col-md-2 action">Status</th>
+        <th class="col-md-2 action">Action</th>
+      </tr>
+    </thead>
+    
+    <tbody class="tbody-list">
+      <% cashbacks.each do |cashback| %>
+        <tr class="cashback_listing_row_<%= cashback.id %>">
+          <%= render 'cashbacks/listing/row', cashback: cashback %>
+        </tr>  
+      <% end %>
+    </tbody>
+  </table>
+  <% unless cashbacks.present? %>
+    <span class="badge alert-danger">Results not found</span>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= paginate cashbacks, :params => { controller: :cashbacks, action: :index }, remote: true %>
+  </div>
+</div>

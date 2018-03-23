@@ -1,0 +1,44 @@
+<% premium_notifications.each do |premium_notification| %>
+  <tr>
+    <td><%= truncate(premium_notification.notification_text, length: 50) %></td>
+    <td><%= premium_notification.publish_date.strftime("%Y-%m-%d %H:%M") %></td>
+    <td class="action"><%= premium_notification.duration %></td>
+    <td><%= premium_notification.notification_time_from.strftime("%H:%M") %></td>
+    <td><%= premium_notification.notification_time_to.strftime("%H:%M") %></td>
+    <td><%= premium_notification.days_text %></td>
+    <td class="action">
+      <%-if premium_notification.allowed? %>
+        <span class="badge alert-success">Yes</span>
+      <%-else %>
+        <span class="badge alert-danger">No</span>
+      <%-end %>
+    </td>
+    <td class="action"><input type="checkbox" class="button-on-off" data-toggle="toggle" value="<%= premium_notification.id %>" data-size="small" <%= 'checked' if premium_notification.status %> ></td>
+    <td class='action'>
+      <%= link_to 'Show', [store, premium_notification], class: 'btn btn-primary btn-sm' %>
+      <%= link_to 'Edit', edit_store_premium_notification_path(store, premium_notification), class: 'btn btn-primary btn-sm' %>
+    </td>
+  </tr>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('input.button-on-off').bootstrapToggle();
+    $('input.button-on-off').change(function(){
+      if (confirm("Are you sure?")) {
+        $.ajax({
+          type: "POST",
+          url: "/stores/<%= store.id %>/premium_notifications/"+$(this).val()+"/change_status"
+        });
+      }
+      else {
+        if($(this).is(':checked')) {
+          $(this).parent('div').addClass('off');
+        }
+        else {
+          $(this).parent('div').removeClass('off');
+        }
+      }
+    });
+  });
+</script>

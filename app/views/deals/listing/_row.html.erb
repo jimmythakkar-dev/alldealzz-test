@@ -1,0 +1,30 @@
+<td><%= truncate(deal.main_line, length: 20) %></td>
+  <td><%= deal.root_deal_category.try(:name) %></td>
+  <td><%= deal.deal_type_to_s.try(:humanize) %></td>
+   <% if @sponsor_order.present? %>
+    <td><%= deal.sponsor_order %></td>
+   <% end %>
+  <td class="action"><%= deal.package_days %></td>
+  <td>
+    <%-if deal.allowed? %>
+      <span class="badge alert-success">Yes</span>
+    <%-else %>
+      <span class="badge alert-danger">No</span>
+    <%-end %>
+  </td>
+  <td>
+    <%-if deal.approved? %>
+      <span class="badge alert-success">Yes (<%= deal.approver.login %>)</span>
+    <%-else %>
+      <span class="badge alert-danger">No</span>
+    <%-end %>
+  </td>
+  <td class="action">
+    <input type="checkbox" class="button-on-off" data-toggle="toggle" value="<%= deal.id %>" data-store-id="<%= deal.store.id %>" data-size="small" <%= 'checked' if deal.status %> >
+    <input type="checkbox" class="button-approved-unapproved" data-toggle="toggle" value="<%= deal.id %>" data-store-id="<%= deal.store.id %>" data-size="small" data-on="Approve" data-off="Unapprove"<%= 'checked' if deal.approved? %> >
+  </td>
+  <td class='action'>
+    <%= link_to 'Show', [deal.store, deal], class: 'btn btn-primary btn-sm' %>
+    <%= link_to 'Edit', edit_store_deal_path(deal.store, deal), class: 'btn btn-primary btn-sm' %>
+    <%= link_to 'Add category', categories_store_deal_path(deal.store, deal), class: 'btn btn-primary btn-sm' %>
+  </td>

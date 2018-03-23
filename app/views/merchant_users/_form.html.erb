@@ -1,0 +1,70 @@
+<div class="row">
+  <%= form_for(@merchant_user, html: {class: "form-horizontal"}) do |f| %>
+    <%= render "shared/error_messages", target: @merchant_user %> 
+    
+  	<%#- if (f.object.new_record?) #or (can? :manage, Mall) %>
+  	  <div class="row">
+	      <div class="col-md-6">
+	        <div class="form-group">
+	          <%= f.label :user_id, "User ID *",class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%= f.text_field :identifier, class: "form-control" %>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :password, "Password *", class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%= f.text_field :password, class: "form-control" %>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :name,class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%= f.text_field :name, class: "form-control" %>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :merchant, "Merchant *", class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+              <%= f.select :global_merchantable, 
+                  merchantable_options_for_select(f.object), 
+		              { include_blank: 'Please select' }, { class: "form-control" } %>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :status, class: "col-sm-3 control-label" %>
+	            <div class="col-sm-8">
+	              <%= f.check_box :status, data: {size: "small", toggle: "toggle"} %>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :is_lmd_live_without_approval, "LMD live without approval", 
+	              class: "col-sm-3 control-label" %>
+	            <div class="col-sm-8">
+	              <%= f.check_box :is_lmd_live_without_approval, data: {size: "small", toggle: "toggle"} %>
+	          </div>
+	        </div>
+	        <!--<div class="form-group">-->
+	          <%#= f.label :has_booking_codes, "Has booking codes",
+	              class: "col-sm-3 control-label" %>
+	            <!--<div class="col-sm-8">-->
+	              <%#= f.check_box :has_booking_codes, data: {size: "small", toggle: "toggle"} %>
+	          <!--</div>-->
+	        <!--</div>-->
+	      </div> 
+	    </div>
+    <%#- end %>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= f.submit 'Submit', class: "btn btn-default" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    
+  });
+</script>

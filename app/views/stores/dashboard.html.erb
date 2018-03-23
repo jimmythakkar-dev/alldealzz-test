@@ -1,0 +1,86 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Dashboard") %></div>
+</div>
+
+<%- if can? :index, Store %>
+  <ol class="breadcrumb">
+    <%= store_breadcrumb_list(@store, 'Dashboard') %>
+  </ol>
+<% end -%>
+
+<div class="row store-deshboard">
+	<div class="col-xs-6 col-md-3">
+    <%= link_to @store do %>
+	    <div class="dashboard-tiles store_tiles_card">
+        <div class="alert alert-callout alert-info no-margin">
+          <strong class="text-xl">Information</strong>
+        </div>
+	    </div>
+    <% end %>
+  </div>
+  <%#- if can? :edit, @store.quotum %>
+	  <!--<div class="col-xs-6 col-md-3">-->
+      <%#= link_to edit_store_quotum_path(@store, @store.quotum) do %>
+        <!--<div class="dashboard-tiles store_tiles_card">-->
+          <!--<div class="alert alert-callout alert-info no-margin">-->
+            <!--<strong class="text-xl">Quota</strong>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--<%# end %>-->
+	  <!--</div>-->
+	<%# end -%>
+  <div class="col-xs-6 col-md-3">
+    <%= link_to credentials_store_path(@store) do %>
+      <div class="dashboard-tiles store_tiles_card">
+        <div class="alert alert-callout alert-info no-margin">
+          <strong class="text-xl">Credentials</strong>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <%= link_to store_analytics_path(@store) do %>
+      <div class="dashboard-tiles store_tiles_card">
+        <div class="alert alert-callout alert-info no-margin">
+          <strong class="text-xl">Analytics</strong>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <%= link_to store_deals_path(@store) do %>
+      <div class="dashboard-tiles store_tiles_card">
+        <div class="alert alert-callout alert-info no-margin">
+          <strong class="text-xl">Deals</strong>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <%= link_to store_feeds_path(@store) do %>
+      <div class="dashboard-tiles store_tiles_card">
+        <div class="alert alert-callout alert-info no-margin">
+          <strong class="text-xl">Feeds</strong>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <!--<div class="col-xs-6 col-md-3">-->
+    <!--<%#= link_to store_premium_notifications_path(@store) do %>-->
+      <!--<div class="dashboard-tiles store_tiles_card">-->
+        <!--<div class="alert alert-callout alert-info no-margin">-->
+          <!--<strong class="text-xl">Premium Notifications</strong>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--<%# end %>-->
+  <!--</div>-->
+  <div class="col-xs-6 col-md-3">
+    <%= link_to store_outlets_path(@store) do %>
+        <div class="dashboard-tiles store_tiles_card">
+          <div class="alert alert-callout alert-info no-margin">
+            <strong class="text-xl">Outlets</strong>
+          </div>
+        </div>
+    <% end %>
+  </div>
+</div>

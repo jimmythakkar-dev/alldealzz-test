@@ -1,0 +1,88 @@
+<div class="row">
+  <%= form_for([@store, @outlet], html: { multipart: true, class: "form-horizontal outlet_form"}) do |f| %>
+    <%= render "shared/error_messages", target: @outlet %>
+    
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :address, class: "col-sm-3 control-label" %>
+          <div class="col-sm-8">
+            <%= f.text_area :address, class: "form-control" %>
+          </div>  
+        </div>
+        <div class="form-group">
+          <%= f.label :contact_phone, 'Manager Phone',class: "col-sm-3 control-label" %>
+          <div class="col-sm-8">
+            <%= f.text_field :contact_phone, class: "form-control editor" %>
+          </div>  
+        </div>
+        <div class="form-group">
+          <%= f.label :phone_number, 'App Phone',class: "col-sm-3 control-label" %>
+          <div class="col-sm-8">
+            <%= f.text_field :phone_number, class: "form-control editor" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :locality, 'Outlet Locality',class: "col-sm-3 control-label" %>
+          <div class="col-sm-8">
+            <%= f.text_field :locality, class: "form-control" %>
+          </div>
+        </div>
+        <div class="form-group">
+          <%= f.label :location, class: "col-sm-3 control-label" %>
+          <div class="col-sm-8">
+            <%= f.text_field :location, class: "form-control gmaps-input-address", id: "input_autocomplete", :placeholder => 'Start typing a place...' %>
+          </div>
+        </div>
+        
+        <% f.object.geo_coordinate ||= GeoCoordinate.new %>
+        <%= f.fields_for :geo_coordinate do |geo_coordinate| %>
+          <div class="form-group">
+            <%= f.label :latitude, class: "col-sm-3 control-label" %>
+            <div class="col-sm-8">
+              <%= geo_coordinate.text_field :latitude, class: "form-control gmaps-input-latitude", :placeholder => 'Latitude...' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :longitude, class: "col-sm-3 control-label" %>
+            <div class="col-sm-8">
+              <%= geo_coordinate.text_field :longitude, class: "form-control gmaps-input-longitude", :placeholder => 'Longitude...' %>
+            </div>
+          </div>
+        <% end %>
+        
+        <div class="form-group">
+          <div class='form-input' id='gmaps-input-canvas'></div>
+        </div>
+        <div class="form-group">
+          <%= f.label :radius, class: "col-sm-3 control-label" %>
+          <div class="input-group padding-15 col-sm-4">
+            <%= f.text_field :radius, class: "form-control", size: 10 %>
+            <span class="input-group-addon" id="basic-addon2">Kms</span>
+          </div>
+        </div>
+      </div> 
+    </div>
+    
+    <hr></hr>
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <%= f.submit 'Submit', class: "btn btn-default" %>
+        </div>
+      </div>
+    </div>  
+  <% end %>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        lat = $('.form-control.gmaps-input-latitude').val() || 0;
+        lng = $('.form-control.gmaps-input-longitude').val() || 0;
+        map_elem = "#gmaps-input-canvas";
+
+        formGmapsCompleter(lat, lng, map_elem);
+    });
+</script>
+

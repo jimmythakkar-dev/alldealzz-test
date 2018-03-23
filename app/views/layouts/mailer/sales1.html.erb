@@ -1,0 +1,12 @@
+<html>
+  <body>
+    <p>Hello,</p>
+
+    <%= yield %>
+    
+    <p>In case you face any issue, please email us at <%= mail_to Settings.mail.support %></p>
+
+    <p>Thanks,<br/>
+    <%= Settings.app_name %> Sales Department.</p>
+  </body>
+</html>

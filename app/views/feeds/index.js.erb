@@ -1,0 +1,2 @@
+$(".feeds_list").html("<%= escape_javascript(render(partial: 'feeds/listing/list', locals: { feeds: @feeds })) %>");
+input_button_on_off_change($('input.button-on-off'), 'change_status');

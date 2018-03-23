@@ -1,0 +1,9 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "New Outlet") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= outlet_breadcrumb_list(nil, 'New Outlet', true) %>
+</ol>
+
+<%= render 'form' %>

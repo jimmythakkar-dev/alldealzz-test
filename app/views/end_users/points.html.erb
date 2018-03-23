@@ -1,0 +1,82 @@
+<div class="row title_header">
+  <div class="col-md-8">
+  <%= title_header(@end_user, "Add End User Points") %>
+  </div>
+</div>
+<ol class="breadcrumb">
+  <%= end_user_breadcrumb_list(@end_user, 'Add End User points') %>
+</ol>
+
+<div class="row">
+  <%= form_for(@end_user_reward_points, url: add_points_end_user_path(@end_user), html: { multipart: true, class: "form-horizontal deal_form"}, method: :post) do |f| %>
+    <%= render "shared/error_messages", target: @end_user %> 
+    
+    <div class="row">
+      <div class="col-md-6">
+	      <div class="form-group">
+	        <%= f.label :points, "Points", class: "col-sm-3 control-label" %>
+	        <div class="col-sm-8">
+	          <%= f.text_field :points, class: "form-control", required: true %>
+	          <div id="result" ></div>
+	        </div>
+	      </div>
+	      
+	      <div class="form-group">
+	        <div class="col-sm-offset-2 col-sm-10">
+	          <%= f.submit 'Submit', class: "btn btn-default", data: { confirm: 'Are You sure Add Points?' } %>
+	        </div>
+	      </div>
+	    </div>  
+    </div>  
+  <% end %>
+</div>
+
+   
+<div class="table-responsive">
+<h4>End User Points History</h4>
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User name</th>
+        <th>End User name</th>
+        <th>Points Given</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    
+    <tbody class="tbody-list">
+    	<tbody class="tbody-list">
+    		<%= render 'end_users/row', end_users: @end_users %>
+    	</tbody> 
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+	function validateRange(ele) {    
+		var val = ele.val();
+		if(!$.isNumeric(val) || parseInt(val,10) < 0 || parseInt(val,10) > 100){
+			$('#result').html('please enter maximum 100');
+		}else{
+			$('#result').html('true');
+		}
+	}
+	$('#end_user_reward_point_points').keyup(function(event){
+		validateRange($(this));
+	});
+
+	function validate() {
+		var inputvalue = $('#end_user_reward_point_points').filter(function (n) {
+			return this.value >= 101;
+		})
+		if (inputvalue.length == $('#end_user_reward_point_points').length) {
+			$("input[type=submit]").prop("disabled", true);
+		} else {
+
+			$("input[type=submit]").prop("disabled", false);
+		}
+	}
+	validate();
+	$('#end_user_reward_point_points').keyup(validate);
+</script>

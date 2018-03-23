@@ -1,0 +1,58 @@
+<div class="row title_header">
+  <div class="col-md-12"><h3><%= Settings.app_name %> Solutions <small>Helpers</small></h3></div>
+</div>
+
+<div class="row title_header">
+  <div class="col-md-6">
+    <%= form_for('/', url: app_helpers_notify_reset_path, method: :post, remote: true, html: {class: "form-inline"}) do |f| %>
+      <div class="form-group">
+        <label class="sr-only">Notification Reset</label>
+        <p class="form-control-static"><strong>1) Notification Reset</strong></p>
+      </div>
+      <button type="submit" class="btn btn-default">Reset</button>
+    <% end %>
+  </div>
+</div>
+
+<div class="row title_header">
+  <div class="col-md-6">
+    <%= form_for('/', url: app_helpers_active_google_app_path, method: :post, remote: true, html: {class: "form-inline"}) do |f| %>
+      <div class="form-group">
+        <p class="form-control-static"><strong>2) Active Google App</strong></p>
+      </div>
+      <button type="submit" class="btn btn-default">View</button>
+    <% end %>
+  </div>
+</div>
+
+<div class="row title_header">
+  <div class="col-md-6">
+    <%= form_for('/', url: app_helpers_active_apple_app_path, method: :post, remote: true, html: {class: "form-inline"}) do |f| %>
+      <div class="form-group">
+        <p class="form-control-static"><strong>3) Active Apple App</strong></p>
+      </div>
+      <button type="submit" class="btn btn-default">View</button>
+    <% end %>
+  </div>
+</div>
+
+<div class="row title_header">
+  <div class="col-md-12">
+    <%= form_for('/', url: app_helpers_api_json_lookup_path, method: :get, remote: true, html: {class: "form-inline"}) do |f| %>
+      <div class="form-group">
+        <p class="form-control-static">
+          <strong>4) API JSON Lookup</strong>
+          <small> (input/placeid/...)</small>
+        </p>
+        <input type="text" class="form-control" name='type' placeholder="Type">
+        <input type="text" class="form-control" name='value' placeholder="Value">
+      </div>
+      <button type="submit" class="btn btn-default">Send</button>
+    <% end %>
+
+    <hr></hr>
+    
+    <div id="result_admin_helpers">
+    </div>
+  </div>
+</div>

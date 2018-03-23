@@ -1,0 +1,5 @@
+<% sales_users.each do |user| %>
+  <tr class="row_sales_user_<%= user.id %>">
+    <%= render 'row', user: user %>
+  </tr>
+<% end %>

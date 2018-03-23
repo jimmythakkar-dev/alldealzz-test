@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="col-lg-6">
+    <%= paginate deals, :params => { controller: :merchant_users, action: :show }, remote: true %>
+  </div>
+  <div class="col-lg-3"></div>
+  <div class="col-lg-3">
+    <%= search_field_tag :search, params[:search], placeholder: 'Enter your search Code', class: "form-control", width: '200px' %>
+    <!-- <span class="input-group-btn">
+      <button class="btn btn-default" type="button">Go!</button>
+    </span> -->
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Main line</th>
+        <th>Publish</br>date</th>
+        <th>Deal</br>category</th>
+        <th>Deal type</th>
+        <th>Allowed</th>
+        <th>Approved</th>
+        <th class="col-md-2 action">Status</th>
+        <th class="col-md-3 action">Action</th>
+      </tr>
+    </thead>
+
+    <tbody class="tbody-list">
+      <% deals.each do |deal| %>
+        <tr>
+          <td><%= truncate(deal.main_line, length: 20) %></td>
+          <td><%= deal.publish_date.strftime("%Y-%m-%d %H:%M") %></td>
+          <td><%= deal.root_deal_category.try(:name) %></td>
+          <td><%= deal.deal_type_to_s.try(:humanize) %></td>
+          <td>
+            <%-if deal.allowed? %>
+              <span class="badge alert-success">Yes</span>
+            <%-else %>
+              <span class="badge alert-danger">No</span>
+            <%-end %>
+          </td>
+          <td>
+            <%-if deal.approved? %>
+              <span class="badge alert-success">Yes (<%= deal.approver.login %>)</span>
+            <%-else %>
+              <span class="badge alert-danger">No</span>
+            <%-end %>
+          </td>
+          <td class="action">
+            <input type="checkbox" class="button-on-off" data-toggle="toggle" value="<%= deal.id %>" data-size="small" <%= 'checked' if deal.status %> >
+            <input type="checkbox" class="button-approved-unapproved" data-toggle="toggle" value="<%= deal.id %>" data-size="small" data-on="Approve" data-off="Unapprove"<%= 'checked' if deal.approved? %> >
+          </td>
+          <td class='action'>
+            <%= link_to 'Show', [store, deal], class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'Edit', edit_store_deal_path(store, deal), class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'Add category', categories_store_deal_path(store, deal), class: 'btn btn-primary btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('input.button-on-off').bootstrapToggle();
+    $('input.button-approved-unapproved').bootstrapToggle();
+
+    $('input#search').keyup(function(e) {
+      if(e.keyCode == 13) {
+        $.ajax({
+          type: "GET",
+          dataType: "script",
+          url: "<%= @merchant_user %>",
+          data: { search:  $(this).val() }
+        });
+      }
+    });
+    
+    $('input.button-on-off').change(function(){
+      if (confirm("Are you sure?")) {
+        $.ajax({
+          type: "POST",
+          url: "/stores/<%= store.id %>/deals/"+$(this).val()+"/change_status"
+        });
+      }
+      else {
+        if($(this).is(':checked')) { $(this).parent('div').addClass('off'); }
+        else { $(this).parent('div').removeClass('off'); }
+      }  
+    });
+
+    $('input.button-approved-unapproved').change(function(){
+      if (confirm("Are you sure?")) {
+        $.ajax({
+          type: "POST",
+          url: "/stores/<%= store.id %>/deals/"+$(this).val()+"/change_approver"
+        });
+      }
+      else {
+        if($(this).is(':checked')) { $(this).parent('div').addClass('off'); }
+        else { $(this).parent('div').removeClass('off'); }
+      }  
+    });
+  });
+</script>

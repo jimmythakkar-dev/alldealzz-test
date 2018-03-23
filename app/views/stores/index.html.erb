@@ -1,0 +1,57 @@
+<div class="row title_header">
+  <div class="col-md-8">
+  	<%= title_header(@store, "Stores") %>
+  </div>
+  <div class="col-md-3 actions">
+    <%- if @manageable.present? && @manageable.is_a?(Mall) %>
+      <%= link_to 'Mall\'s New Store', new_mall_store_path(@manageable), class: "btn btn-default btn-lg btn-block" %>
+    <% else %>
+      <%= link_to 'New Store', new_store_path, class: "btn btn-default btn-lg btn-block" %>
+    <% end %>  
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= store_breadcrumb_list(nil, 'Stores') %>
+</ol>
+
+<div class="search">
+  <%= render 'stores/listing/search' %>
+</div>
+  
+<div class="stores_list">
+  <%= render 'stores/listing/list', stores: @stores %>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    input_button_on_off_status_change($('input.button-on-off'));
+    
+    $('select#search_selected').on('change', function(e) {
+      search_request();
+    });
+    $('input#search_text').keyup(function(e) {
+      if(e.keyCode == 13) { search_request(); }
+    });
+  });
+
+  function search_request() {
+    $.ajax({
+      type: "GET",
+      dataType: "script",
+      url: "stores",
+      data: { search:  { text: $('input#search_text').val(), selected: $('select#search_selected').val() } }
+    });
+  }
+
+  function input_button_on_off_status_change(element) {
+    element.bootstrapToggle();
+    element.change(function(){
+      $.ajax({
+        type: "POST",
+        url: "/stores/"+$(this).val()+"/change_status",
+        data: { page: <%= params[:page] || 1 %> }
+      });
+    });
+  }
+</script>

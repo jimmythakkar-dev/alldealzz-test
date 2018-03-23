@@ -1,0 +1,1 @@
+$(".row_merchant_user_notification<%= @requested_notification.id %>").html("<%= escape_javascript(render(partial: 'row', locals: {notification: @requested_notification})) %>");

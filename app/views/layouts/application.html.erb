@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= Settings.app_name %> Admin</title>
+  <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%#= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
+
+  <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places&key=#{Settings.google_api_key}" %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="<%= 'mainboard light' unless user_signed_in? %>">
+  <% if user_signed_in? %>
+    <%= render "shared/dashboard/header_nav" %>
+    <aside>
+      <%= render "shared/dashboard/side_menu" %>
+    </aside>
+  <% else %>
+    <%= render "shared/dashboard/header_nav_global" %>
+  <% end %>
+  
+  <div class="main">
+    <% if notice # && user_signed_in? && (controller_name != 'devise/sessions') %> 
+      <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <%= notice %>
+      </div>
+    <% end %> 
+    <% if alert # && user_signed_in? && (controller_name != 'devise/sessions') %> 
+      <div class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <%= alert %>
+      </div>
+    <% end %>       
+
+    <%= yield %>
+
+    <% unless user_signed_in? %>
+      <!--<nav class="navbar navbar-default navbar-fixed-bottom">-->
+        <!--<div class="container-fluid col-md-offset-mid">-->
+        <!--<p class="navbar-text">Want to display your offers on <%#= Settings.app_name %>, Contact us at : <%#= mail_to Settings.email.username %></p>-->
+        <!--</div>-->
+      <!--</nav>-->
+    <%- else %> 
+      <nav class="navbar navbar-default navbar-fixed-bottom admin-footer">
+        <div class="container-fluid col-md-offset-5 col-md-4">
+        <p class="navbar-text">Copyright@<%= Settings.app_name %> Solutions - UK</p>
+        </div>
+      </nav>
+    <% end %>
+  </div>
+</body>
+</html>

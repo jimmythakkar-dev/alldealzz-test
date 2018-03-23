@@ -1,0 +1,23 @@
+<%- if !current_user.sales_admin? %>
+    <div class="col-md-12">
+      <h4>Error Pending Requested Jobs:
+        <small>
+          <span class="badge alert-danger">
+            <%= Delayed::Job.where("handler LIKE '%job_class: PushNotification::ToEndUser::SenderRequestedJob%' and last_error is not null").count %>
+          </span>
+          <%= link_to 'Kill Now', stop_pending_delayed_jop_dashboard_index_path(type: :requested), remote: true, method: :post %>
+        </small>
+      </h4>
+    </div>
+
+    <div class="col-md-12">
+      <h4>Error Pending all Jobs:
+        <small>
+          <span class="badge alert-danger">
+            <%= Delayed::Job.where("last_error is not null").count %>
+          </span>
+          <%= link_to 'Kill Now', stop_pending_delayed_jop_dashboard_index_path(type: :all), remote: true, method: :post %>
+        </small>
+      </h4>
+    </div>
+<% end %>

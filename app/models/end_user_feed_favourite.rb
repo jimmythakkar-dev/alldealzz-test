@@ -1,0 +1,10 @@
+class EndUserFeedFavourite < ActiveRecord::Base
+  belongs_to :end_user
+  belongs_to :favourite_feed, 
+    class_name: 'Feed', foreign_key: "feed_id"
+  belongs_to :favourite_end_user, 
+    class_name: 'EndUser', foreign_key: 'end_user_id'
+    
+
+	validates :end_user_id, uniqueness: { scope: :feed_id }  
+end

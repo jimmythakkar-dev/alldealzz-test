@@ -1,0 +1,11 @@
+<div class="new_globel_register_store">
+	<div class="row title_header">
+	  <div class="col-md-8"><%= title_header(@merchant_user, "Merchant User") %></div>
+	</div>
+
+	<ol class="breadcrumb">
+    <%= merchant_user_breadcrumb_list(nil, 'New', true) %>
+	</ol>
+
+	<%= render 'form' %>
+</div>

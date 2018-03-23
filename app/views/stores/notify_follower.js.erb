@@ -1,0 +1,4 @@
+$("input.notification_text").val("");
+$("p.send_notification").html("<%= @msg %>");
+$("p.send_notification").addClass("<%= @sucess ? 'text-success' : 'text-danger' %>");
+$("p.send_notification").removeClass("<%= @sucess ? 'text-danger' : 'text-success' %>");

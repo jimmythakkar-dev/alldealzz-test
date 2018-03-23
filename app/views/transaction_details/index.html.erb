@@ -1,0 +1,37 @@
+<div class="row title_header">
+  <div class="col-md-8">
+    <%= title_header(@merchant_user, "Transaction details") %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= merchant_user_breadcrumb_list(@merchant_user, 'Transaction details') %>
+</ol>
+
+<div class="search">
+  <%= render 'transaction_details/listing/search' %>
+</div>
+
+<div class="transaction_details_list">
+  <%= render 'transaction_details/listing/list', transaction_details: @transaction_details %>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('select#search_selected').on('change', function(e) {
+      search_request();
+    });
+    $('input#search_text').keyup(function(e) {
+      if(e.keyCode == 13) { search_request(); }
+    });
+  });
+
+  function search_request() {
+    $.ajax({
+      type: "GET",
+      dataType: "script",
+      url: "transaction_details",
+      data: { search:  { text: $('input#search_text').val(), selected: $('select#search_selected').val() } }
+    });
+  }
+</script>

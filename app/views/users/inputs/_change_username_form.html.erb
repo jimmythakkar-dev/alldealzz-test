@@ -1,0 +1,45 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>Change Email / User name</h4>
+  </div>
+  <div class="panel-body">
+    <%= form_for(user, :url => update_username_user_path(user), remote: true, :html => { :method => :put, role: "form" }) do |f| %>
+      <div class="form-group">
+        <%= render "shared/error_messages", target: f.object %>
+        <% if notice %> 
+          <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <%= notice %>
+          </div>
+        <% end %>
+
+        <p>
+          <strong>Email:</strong>
+          <%= f.object.email %>
+        </p> 
+        <p>
+          <strong>User name:</strong>
+          <%= f.object.username %>
+        </p>
+        <hr></hr>
+
+        <%- unless current_user.super_admin? %>
+          <%= f.label :current_password %> <i>(<%= t('.we_need_your_current_password_to_confirm_your_changes', :default => 'we need your current password to confirm your changes') %>)</i>
+          <%= f.password_field :current_password, class: "form-control" %>
+        <% end -%>  
+      </div>
+
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, class: "form-control"  %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :username, "User Name" %>
+        <%= f.text_field :username, class: "form-control"  %>
+      </div>
+
+      <%= f.submit 'Update', class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

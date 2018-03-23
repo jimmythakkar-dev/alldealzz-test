@@ -1,0 +1,38 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@mall, "Dashboard") %></div>
+</div>
+
+<%- if can? :manage, Mall %>
+  <ol class="breadcrumb">
+    <%= mall_breadcrumb_list(nil, 'Dashboard', true) %>
+  </ol>
+<% end -%>
+<div class="row store-deshboard">
+	<div class="col-xs-6 col-md-3">
+    <%= link_to @mall do %>
+	    <div class="dashboard-tiles store_tiles_card">
+        <div class="alert alert-callout alert-info no-margin">
+          <strong class="text-xl">Information</strong>
+        </div>
+	    </div>
+    <% end %>
+  </div> 
+  <div class="col-xs-6 col-md-3">
+    <%= link_to credentials_mall_path(@mall) do %>
+      <div class="dashboard-tiles store_tiles_card">
+        <div class="alert alert-callout alert-info no-margin">
+          <strong class="text-xl">Credentials</strong>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="col-xs-6 col-md-3">
+    <%= link_to mall_stores_path(@mall) do %>
+      <div class="dashboard-tiles store_tiles_card">
+        <div class="alert alert-callout alert-info no-margin">
+          <strong class="text-xl">Stores</strong>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

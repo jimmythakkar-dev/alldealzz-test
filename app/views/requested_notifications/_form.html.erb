@@ -1,0 +1,77 @@
+<div class="row">
+
+  <%= form_for(requested_notification, url: requested_notifications_path, method: :post,html: {class: "form-horizontal"}, remote: true) do |f| %>
+      
+      <%= render "shared/error_messages", target: f.object %>
+      
+      <div class="col-md-6">
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Target device</label>
+          <div class="col-sm-8">
+            <label class="checkbox-inline">
+              <%= radio_button :requested_notification, :target_device, :all, checked: true %> All
+            </label>
+            <label class="checkbox-inline">
+              <%= radio_button :requested_notification, :target_device, :google %> Google
+            </label>
+            <label class="checkbox-inline">
+              <%= radio_button :requested_notification, :target_device, :apple %> Apple
+            </label>
+          </div>  
+        </div>
+        
+        <div class="form-group">
+          <label class="col-sm-4 control-label">Type[WIP]</label>
+          <div class="col-sm-8">
+            <label class="checkbox-inline">
+              <%= radio_button :requested_notification, :notification_type, :text, checked: true %> Text
+            </label>
+            <label class="checkbox-inline">
+              <%= radio_button :requested_notification, :notification_type, :distance %> Distance
+            </label>
+          </div>  
+        </div>
+
+        <div class="form-group">
+          <%= f.label :merchant, "Stores & Outlets", class: "col-sm-4 control-label" %>
+          <div class="col-sm-8">
+            <%= f.select :global_merchantable,
+                merchantable_options_for_select(f.object), 
+                { include_blank: 'Please select' }, { class: "form-control" } %>
+          </div>
+        </div>
+
+        <div id="merchantable_form">
+          <% if f.object.merchantable.present? %>
+            <%= render 'requested_notifications/merchantable_form' %>
+          <% end %>  
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div id="dealable_form">
+          <%= render 'requested_notifications/dealable_form', deal: f.object.deal %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-10">
+          <%= f.submit 'Submit', class: "btn btn-default" %>
+          <p class="send_notification"></p>
+        </div>
+      </div>
+  <% end %>
+</div>  
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#requested_notification_global_merchantable').on('change', function(e) {
+        $.ajax({
+          type: "POST",
+          dataType: "script",
+          url: "/requested_notifications/merchantable_form",
+          data: { global_merchantable:  $(this).val() }
+        });
+    });
+  });
+</script>

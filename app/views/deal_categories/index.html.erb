@@ -1,0 +1,40 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Deal Categories") %></div>
+  <div class="col-md-3 actions">
+    <%= link_to 'New Deal category', new_deal_category_path, class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= li_link_to 'Home', root_path %>
+  <%= li_link_to 'Deal Categories', nil, class: "active" %>
+</ol>
+
+<div class="table-responsive">
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Priority Order</th>
+        <th class='action'>Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @deal_categories.each do |deal_category| %>
+        <tr>
+          <td><%= deal_category.name %></td>
+          <td><%= deal_category.deal_type_to_s.try(:humanize) %></td>
+          <td><%= deal_category.priority_order %></td>
+          <td class='action'>
+            <%= link_to 'Edit', [:edit, deal_category], class: 'btn btn-primary btn-sm' %>
+            <%= link_to 'Sub deal categories', deal_category_sub_deal_categories_path(deal_category), class: 'btn btn-primary btn-sm' %>
+            <%#= link_to 'Destroy', [deal_category], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

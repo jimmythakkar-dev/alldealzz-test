@@ -1,0 +1,41 @@
+
+<div class="form-group category">
+	<%= f.label :type,"Deal Category Type" ,class: "col-sm-3 control-label" %>
+	<div class="col-sm-6">
+		<label class="checkbox-inline">
+			<%= radio_button :deal_category_id, :deal_type, 0, class: 'category_cashback' %> Deal
+		</label>
+		<label class="checkbox-inline">
+			<%= radio_button :deal_category_id, :deal_type, 1, class: 'category_cashback' %> Last Minute Deal
+		</label>
+	</div>
+</div>
+<div class="form-group">
+	<%= f.label :deal_category, class: "col-sm-3 control-label" %>
+	<div class="col-sm-8">
+		<%= f.select :deal_category_id, DealCategory.root_categories.map { |i| [i.name, i.id]}, {:include_blank => 'Please select'}, {class: "form-control"} %>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function () {
+     $('input.category_cashback').on('change', function(e) {
+     	deal_category_request();
+     });
+     function deal_category_request() {
+     	$.ajax({
+     		type: "POST",
+     		dataType: "script",
+     		url: "/cashbacks/category",
+     		data: { deal_type: $("input.category_cashback:checked", ".category").val() }, 
+     		success: function(data) {
+     			var $dropdown = $("#cashback_deal_category_id");
+     			$dropdown.empty();
+     			$dropdown.append("<option>Please select</option>");
+     			$.each(JSON.parse(data), function(index, value) {
+     				$dropdown.append("<option value="+value.id+">" + value.name + "</option>");
+     			});
+				}
+     	})
+     }
+   });	
+</script>

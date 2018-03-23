@@ -1,0 +1,150 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('.form-control.editor').each(function(i, elem) {
+			$(elem).wysihtml5();
+		});
+
+		view_cashback_input();
+		$('input.is_cashback').change(function(){ 
+			view_cashback_input();
+		});
+		
+		$("input[name='cashback[cashback_type]']").change(function () {
+            if ($("#cashback_cashback_type_3").is(":checked")) {
+                $("#cashback_category").show();
+            } else {
+                $("#cashback_category").hide();
+            }
+        });
+		
+		function view_cashback_input() {
+			if($('input.is_cashback:checked').val() == <%= Cashback::CashbackType[:deal] %>) {
+				$('.cashback_is_true').show(); $('.cashback_is_false').hide();
+			} else if ($('input.is_cashback:checked').val() == <%= Cashback::CashbackType[:store] %>)  {
+				$('.cashback_is_true').show(); $('.cashback_is_false').hide();
+			} else {
+				$('.cashback_is_true').hide(); $('.cashback_is_false').show();
+			}
+		}
+	});
+</script>
+<%= form_for([ @cashback], html: { multipart: true, class: "form-horizontal cashback_form"}) do |f| %>
+<%= render "shared/error_messages", target: @cashback %> 
+<div class="row">
+	<div class="col-md-6">
+		<div class="form-group">
+			<%= f.label :type, class: "col-sm-3 control-label" %>
+			<div class="col-sm-9">
+				<label class="checkbox-inline">
+					<%= f.radio_button :cashback_type, Cashback::CashbackType[:general], class: 'is_cashback' %> General
+				</label>
+				<label class="checkbox-inline">
+					<%= f.radio_button :cashback_type, Cashback::CashbackType[:deal], class: 'is_cashback' %> Deal
+				</label>
+				<label class="checkbox-inline">
+					<%= f.radio_button :cashback_type, Cashback::CashbackType[:store], class: 'is_cashback' %> Store
+				</label>
+				<label class="checkbox-inline">
+					<%= f.radio_button :cashback_type, Cashback::CashbackType[:deal_category], class: 'is_cashback' %> Deal Category
+				</label>
+			</div>  
+		</div>
+		<div class="input_cashback cashback_is_true">
+			<%= render "cashbacks/input_template/cashback_deal", f: f %> 
+		</div>
+		<div class="input_cashback" id="cashback_category" style="display: none">
+			<%= render "cashbacks/input_template/cashback_category", f: f %> 
+		</div>
+		<div class="form-group">
+			<%= f.label :text, class: "col-sm-3 control-label" %>
+			<div class="col-sm-8">
+				<%= f.text_field :text, class: "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<%= f.label :discount, "Cashback(%)", class: "col-sm-3 control-label" %>
+			<div class="col-sm-8">
+				<%= f.text_field :discount, class: "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<%= f.label :code, class: "col-sm-3 control-label" %>
+			<div class="col-sm-8">
+				<%= f.text_field :code, class: "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<%= f.label :points, class: "col-sm-3 control-label" %>
+			<div class="col-sm-8">
+				<%= f.text_field :points, class: "form-control" %>
+                <h5><%= "1\u00a3 = 100 AD Points" %></h5>
+			</div>
+		</div>
+		<div class="form-group">
+			<%= f.label :image,'Image',class: "col-sm-3 control-label" %>
+			<div class="col-sm-8">
+				<%- if f.object.image.present? && f.object.image.url.present? %>
+				<img src='<%= f.object.image.url %>' width='100' height='100'> 
+				<% end -%>  
+				<%= f.file_field :image %>
+			</div>  
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<%= f.label :max_time_useable,"Max Time Useable Per User",class: "col-sm-3 control-label" %>
+			<div class="col-sm-8">
+				<%= f.text_field :max_time_useable, class: "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<%= f.label :total_coupons, class: "col-sm-3 control-label" %>
+			<div class="col-sm-8">
+				<%= f.text_field :total_coupons, class: "form-control" %>
+			</div>
+		</div>
+		<div class="form-group">
+			<%= f.label :termsandconditions, 'Terms & Conditions',class: "col-sm-3 control-label" %>
+			<div class="col-sm-8">
+				<%= f.text_area :termsandconditions, rows: 5, class: "form-control" %>
+			</div>  
+		</div>
+		<div class="form-group">
+			<%= label_tag :is_trending, 'Trending Cashback', class: "col-sm-3 control-label" %>
+			<div class="col-sm-8">
+				<%= f.check_box :is_trending %>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<hr></hr>
+	<div class="col-md-6">
+		<div class="form-group">
+			<%= f.label :publish_date, class: "col-sm-3 control-label" %>
+			<div class="col-sm-8">
+				<%= f.date_select :publish_date, class: "form-control" %>
+			</div>  
+		</div>
+		<div class="form-group">
+			<%= f.label :expiry_date, class: "col-sm-3 control-label" %>
+			<div class="col-sm-8">
+				<%= f.date_select :expiry_date, class: "form-control" %>
+			</div>  
+		</div>
+		<!-- <div class="form-group">
+			<%#= f.label :duration, class: "col-sm-3 control-label" %>
+			<div class="input-group padding-15 col-sm-4">
+				<%#= f.number_field :duration, class: "form-control" %>
+				<span class="input-group-addon" id="basic-addon2">Days</span>
+			</div>  
+		</div> -->
+
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<%= f.submit 'Submit', class: "btn btn-default" %>
+			</div>
+		</div>
+	</div>
+</div>
+<% end -%>

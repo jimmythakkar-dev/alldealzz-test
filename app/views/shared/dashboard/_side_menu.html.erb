@@ -1,0 +1,164 @@
+<nav class="navbar navbar-default sidebar" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= default_logo_image %> 
+      <p><i><%= current_user.user_name %></i></p>  
+    </div>
+    <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+          <li class="">
+            <%= link_to root_path do %>
+                <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span>Home
+              <% end %>
+          </li>
+
+          <%- if (can? :index, Mall) && (!current_user.sales_admin?) %>
+            <li class=<%= (controller_name == 'malls') ? "active" : "" %> >
+              <%= link_to malls_path do %>
+                <span style="font-size:16px;" class="pull-right hidden-xs showopacity">M</span>Mall
+              <% end %>
+            </li>
+          <% end -%>  
+          <%- if can? :manage, Store %>
+            <li class=<%= (controller_name == 'stores') ? "active" : "" %> >
+              <%= link_to stores_path do %>
+                <span style="font-size:16px;" class="pull-right hidden-xs showopacity">S</span>Store
+              <% end %>
+            </li>
+          <% end -%>
+          
+          <%- if can? :manage, Deal %>
+            <li class=<%= (controller_name == 'deals') ? "active" : "" %> >
+              <%= link_to deals_path do %>
+                <span style="font-size:16px;" class="pull-right hidden-xs showopacity">D</span>Deal
+              <% end %>
+            </li>
+          <% end -%>
+
+          <%- if (can?(:index, SalesUser) || can?(:index, MerchantUser)) && (!current_user.sales_admin?) %>
+            <li class="dropdown" >
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">User Management <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
+              <ul class="dropdown-menu forAnimate" role="menu">
+
+                <%- if can? :index, SalesUser %>
+                  <li class=<%= (controller_name == 'sales_users') ? "active" : "" %> >
+                    <%= link_to sales_users_path do %>
+                      <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-asterisk"></span>Sales
+                    <% end %>
+                  </li>
+                <% end -%>
+                
+                <!-- <li class="divider"></li> -->
+                
+                <%- if can? :index, MerchantUser %>
+                  <li class=<%= (controller_name == 'merchant_users') ? "active" : "" %> >
+                    <%= link_to merchant_users_path do %>
+                      <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-asterisk"></span>Merchant
+                    <% end %>
+                  </li>
+                <% end -%>
+
+                <%- if can? :index, EndUser %>
+                <li class=<%= (controller_name == 'end_users') ? "active" : "" %> >
+                  <%= link_to end_users_path do %>
+                  <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-asterisk"></span>End Users
+                  <% end %>
+                </li>
+                <% end -%>
+
+              </ul>
+            </li> 
+          <% end -%>
+
+        <%- if !current_user.sales_admin? %>
+          <li class=<%= (controller_name == 'transaction_details') ? "active" : "" %> >
+            <%= link_to transaction_details_path do %>
+                <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-credit-card"></span>Transaction
+            <% end %>    
+          </li>
+          
+          <li class=<%= (controller_name == 'cashbacks') ? "active" : "" %> >
+            <%= link_to cashbacks_path do %>
+                <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-transfer"></span>Cashback
+            <% end %>    
+          </li>
+          <%- if can?(:new, :notifications) || can?(:new, RequestedNotification) %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Notification <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-bell"></span></a>
+              <ul class="dropdown-menu forAnimate" role="menu">
+
+              
+                <%- if can? :new, :notifications %>
+                  <li class=<%= (controller_name == 'requested_notifications') && (action_name.in?(['create', 'new'])) ? "active" : "" %> >
+                    <%= link_to("New request", new_requested_notification_path) %>
+                  </li>
+                <% end -%>
+
+
+                <%- if can? :index, :notifications %>
+                    <li class="divider"></li>
+                    <li class=<%= (controller_name == 'notifications') && (action_name.in?(['index'])) ? "active" : "" %> >
+                    <%= link_to("All", notifications_path) %>
+                  </li>
+                <% end -%>
+
+
+                <%- if can? :index, RequestedNotification %>
+                    <li class="divider"></li>
+                    <li class=<%= (controller_name == 'requested_notifications') && (action_name.in?(['index'])) ? "active" : "" %> >
+                    <%= link_to("Requested", requested_notifications_path) %>
+                  </li>
+                <% end -%>
+              </ul>
+            </li> 
+          <% end -%>
+
+          <%- if (can? :manage, :app_helpers) && (!current_user.sales_admin?) %>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench"></span></a>
+              <ul class="dropdown-menu forAnimate" role="menu">
+              
+                <%- if can? :manage, StoreCategory %> 
+                  <!-- <li class=<%#= (controller_name  == 'store_categories') ? "active" : "" %> >
+                    <%#= link_to("Store Categories", store_categories_path) %>
+                  </li>  -->
+                  <li class=<%= (controller_name == 'deal_categories') ? "active" : "" %> >
+                    <%= link_to("Deal Categories", deal_categories_path) %>
+                  </li>
+                <% end %>
+                <li>
+                  <%= link_to("API Details", api_details_path) %>
+                </li>
+                <li>
+                  <%#= link_to("Helpers", app_helpers_path) %>
+                </li>
+              </ul>
+            </li> 
+          <% end -%>
+
+          <%- if can? :manage, current_user %> 
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile <span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
+              <ul class="dropdown-menu forAnimate" role="menu">
+                <li>
+                  <%= link_to("Password", change_password_users_path) %>
+                </li>
+                <li>
+                  <%= link_to("Email or User name", change_username_users_path) %>
+                </li>
+              </ul>
+          <% end -%>
+        <% end %>
+          <li>
+            <%= link_to destroy_user_session_path, :method => :delete do %>
+                <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-log-out"></span>Logout
+            <% end %>    
+          </li>
+
+        <!-- <li ><a href="#"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-th-list"></span></a></li>        
+        <li ><a href="#"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li> -->
+      </ul>
+    </div>
+  </div>
+</nav>

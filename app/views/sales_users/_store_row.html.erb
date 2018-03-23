@@ -1,0 +1,26 @@
+<%- if store.creatable.present? %>
+  <td><%= link_to store.name, store.creatable %></td>
+<% else %>
+  <td><%= store.name %></td>
+<% end %>
+<td><%= store.email %></td>
+<td><%= store.phone_number %></td>
+<td><%= "#{store.latitude} / #{store.longitude}" %></td>
+<td><%= "#{store.created_at.to_date} / #{store.updated_at.to_date}" %></td>
+<td><span class="badge"><%= store.active_status %></span></td>
+<td class="action">
+  <%= link_to 'Edit', [:edit, store.sales_user, store], 
+      class: 'btn btn-primary btn-sm' %>
+  <%= link_to 'Images', 
+        sales_user_sales_user_store_sales_user_store_photos_path(store.sales_user, store),
+      class: 'btn btn-primary btn-sm' %>    
+  <%- if store.is_valid? %>    
+  <%= link_to 'Create Live', [:create_live, store.sales_user, store], 
+      class: 'btn btn-primary btn-sm', remote: true, data: { confirm: "Are you sure?" }, method: :post %>
+  <% end -%>    
+</td>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("tr.row_sales_user_"+<%= store.id %>).find('input.button-on-off').bootstrapToggle();
+  });
+</script>

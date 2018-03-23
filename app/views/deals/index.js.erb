@@ -1,0 +1,3 @@
+$(".deals_list").html("<%= escape_javascript(render(partial: 'deals/listing/list', locals: {deals: @deals, sponsor_order: @sponsor_order})) %>");
+input_button_on_off_change($('input.button-on-off'), 'change_status');
+input_button_on_off_change($('input.button-approved-unapproved'), 'change_approver');

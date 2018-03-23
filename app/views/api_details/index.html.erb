@@ -1,0 +1,16 @@
+<div class="row title_header">
+  <div class="col-md-8">
+  	<%= title_header(@api_detail, "API Details") %>
+  </div>
+  <div class="col-md-3 actions">
+    <%= link_to 'New ApiDetail', new_api_detail_path, class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= api_detail_breadcrumb_list(nil, 'API Details') %>
+</ol>
+
+<div class="api_details_list">
+  <%= render 'api_details/listing/list', api_details: @api_details %>
+</div>

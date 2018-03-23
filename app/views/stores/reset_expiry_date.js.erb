@@ -1,0 +1,4 @@
+$("#store_expiry_date").html("<%= escape_javascript(render(partial: 'form', locals: {stores: @stores})) %>");
+if(<%= !@reset_expiry_date %>){
+  alert('Outlet status not changed.');
+};

@@ -1,0 +1,13 @@
+<% @api_details.each do |api_detail| %>
+<tr>
+	<td><%= api_detail.device_type_to_s.try(:humanize) %></td>
+	<td><%= api_detail.api_version %></td>
+	<td><%= api_detail.app_version %></td>
+	<td><%= api_detail.app_type_to_s.try(:humanize) %></td>
+	<td class='action'>
+		<%= link_to 'Show', [api_detail], class: 'btn btn-primary btn-sm' %>
+		<%= link_to 'Edit', edit_api_detail_path(api_detail), class: 'btn btn-primary btn-sm' %>
+		<%#= link_to 'Add category', categories_store_deal_path(api_detail.store, api_detail), class: 'btn btn-primary btn-sm' %>
+	</td>
+</tr>
+<% end -%>

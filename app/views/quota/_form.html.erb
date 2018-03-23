@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-7">
+    <%= form_for([@store, @quotum], html: {class: "form-horizontal"}) do |f| %>
+      <%= render "shared/error_messages", target: @quotum %> 
+      
+      <div class="form-group row">
+        <div class="col-xs-3">
+          <strong>Clicks</strong>        
+        </div>
+        <div class="col-xs-2">
+          <%= f.number_field :total, class: 'form-control' %> 
+        </div>
+        <div class="col-xs-1">
+          <strong>/</strong>        
+        </div>
+        <div class="col-xs-2">
+        <span class="badge alert-success">
+          <strong><%= @quotum.total - @quotum.used %></strong>
+        </span>
+        </div>
+        <div class="col-xs-1">
+          Left
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-xs-3">
+          <strong>Premium Notification</strong>        
+        </div>
+        <div class="col-xs-2">
+          <%= f.number_field :premium_notification_total, class: 'form-control' %> 
+        </div>
+        <div class="col-xs-1">
+          <strong>/</strong>        
+        </div>
+        <div class="col-xs-2">
+          <span class="badge alert-success">
+            <strong><%= @quotum.premium_notification_total - @quotum.premium_notification_used %></strong>
+          </span>  
+        </div>
+        <div class="col-xs-1">
+          Left
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-3 col-sm-3">
+          <%= f.submit 'Update', class: "btn btn-default" %>
+        </div>
+        <div class="col-md-2">
+          <%= link_to 'Analytics', store_analytics_path(@store), class: "btn btn-default" %>
+        </div>  
+      </div>
+    <% end %>
+  </div>
+</div>    

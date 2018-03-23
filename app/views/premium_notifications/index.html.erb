@@ -1,0 +1,34 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Premium Notifications") %></div>
+  <div class="col-md-3 actions">
+    <%= link_to 'New Premium Notification', new_store_premium_notification_path(@store), class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= pn_breadcrumb_list(nil, 'Premium Notifications') %>
+</ol>
+
+<div class="table-responsive">
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Notification<br/>text</th>
+        <th>Publish date</th>
+        <th class="action">Duration</th>
+        <th>Notification<br/>from time</th>
+        <th>Notification<br/>to time</th>
+        <th>Days</th>
+        <th class="action">Allowed</th>
+        <th class="action">Status</th>
+        <th class="col-md-2 action">Action</th>
+      </tr>
+    </thead>
+
+    <tbody class="tbody-list">
+      <%= render 'list', premium_notifications: @premium_notifications, 
+            store: @store %>
+    </tbody>
+  </table>
+</div>

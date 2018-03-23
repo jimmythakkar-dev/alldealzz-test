@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-md-6 last_minute_deal_is_false">
+    <div class="form-group">
+      <%= f.label :is_age_limit, "Location based Age Limit ?", class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+        <%= f.check_box :is_age_limit %>
+      </div>  
+    </div>
+    <div class="form-group">
+      <%= f.label :age_from, "Location based Age From", class: "col-sm-3 control-label" %>
+      <div class="col-sm-4">
+        <%= f.number_field :age_from, class: "form-control" %>
+      </div>  
+    </div>
+    <div class="form-group">
+      <%= f.label :age_to, "Location based Age To", class: "col-sm-3 control-label" %>
+      <div class="col-sm-4">
+        <%= f.number_field :age_to, class: "form-control" %>
+      </div>  
+    </div>
+    <div class="form-group">
+      <%= f.label :gender, "Location based Gender", class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+        <label class="checkbox-inline">
+          <%= f.radio_button :gender, 0 %> Male
+        </label>
+        <label class="checkbox-inline">
+          <%= f.radio_button :gender, 1 %> Female
+        </label>
+        <label class="checkbox-inline">
+          <%= f.radio_button :gender, 2 %> Both
+        </label>
+      </div>  
+    </div>
+  </div>  
+
+  <div class="col-md-6"> 
+    <div class="form-group ">
+      <%= f.label :publish_immediately, class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+        <%= f.check_box :publish %>
+      </div>  
+    </div>
+    <div class="form-group">
+      <%= f.label :publish_date, class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+        <%= f.date_select :publish_date, class: "form-control" %>
+      </div>  
+    </div>
+    <div class="form-group">
+      <%= f.label :expiry_date, class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+        <%= f.date_select :expiry_date, class: "form-control" %>
+      </div>  
+    </div>
+    <!-- <div class="form-group">
+      <%#= f.label :duration, class: "col-sm-3 control-label" %>
+      <div class="input-group padding-15 col-sm-4">
+        <%#= f.number_field :duration, class: "form-control" %>
+        <span class="input-group-addon" id="basic-addon2">Days</span>
+      </div>  
+    </div> -->
+  </div>
+</div>

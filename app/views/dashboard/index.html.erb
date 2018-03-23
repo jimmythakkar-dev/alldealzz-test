@@ -1,0 +1,31 @@
+<%- if current_user.super_admin? %>
+  <div class="row title_header">
+    <div class="col-md-12"><h3><%= Settings.app_name %> Solutions<small></small></h3></div>
+  </div>
+
+  <div class="row title_header">
+    <div class="col-md-12">
+      <div id="stop_pending_delayed_jop">
+        <%= render 'stop_pending_delayed_jop' %>
+      </div>
+
+    </div>
+  </div>
+
+<% elsif current_user.stores_admin? %> 
+  <div class="row title_header">
+    <div class="col-md-12">
+      <h3><%= Settings.app_name %> Solutions 
+        <small>Welcome stores admin </small>
+      </h3>
+    </div>
+  </div> 
+<% elsif current_user.sales_admin? %>
+   <div class="row title_header">
+    <div class="col-md-12">
+      <h3><%= Settings.app_name %> Solutions 
+        <small>Welcome sales admin </small>
+      </h3>
+    </div>
+  </div>
+<% end %>

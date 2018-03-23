@@ -1,0 +1,215 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    viewDealTypeInput();
+    $('#feed_deal_type').change(function(){ 
+      viewDealTypeInput();
+    });
+
+    $('#feed_days').click(function () {
+      if ($(this).is(':checked')) {
+        $('#feed_days_0, #feed_days_1, #feed_days_2, #feed_days_3, #feed_days_4, #feed_days_5, #feed_days_6').prop('checked', true);
+      } else {
+        $('#feed_days_0, #feed_days_1, #feed_days_2, #feed_days_3, #feed_days_4, #feed_days_5, #feed_days_6').prop('checked', false);
+      }
+    });
+    $('#feed_days_0, #feed_days_1, #feed_days_2, #feed_days_3, #feed_days_4, #feed_days_5, #feed_days_6').click(function () {
+      if ($(this).is(':checked')) {
+      } 
+      else {
+        $('#feed_days').prop('checked', false);
+      }
+    });
+
+    function viewDealTypeInput() {
+      var feedDealTypeVal = $('#feed_deal_type').val();
+
+      if(feedDealTypeVal == <%= Feed::DealType[:po] %>) {
+        $('.form-group.deal_type').hide(); 
+        $('.form-group.deal_type_<%= Feed::DealType[:po] %>').show();
+      } else if(feedDealTypeVal == <%= Feed::DealType[:ao] %>) {
+        $('.form-group.deal_type').hide(); 
+        $('.form-group.deal_type_<%= Feed::DealType[:ao] %>').show();
+      } else if(feedDealTypeVal == <%= Feed::DealType[:bogo] %>) {
+        $('.form-group.deal_type').hide(); 
+        $('.form-group.deal_type_<%= Feed::DealType[:bogo] %>').show();
+      } else if(feedDealTypeVal == <%= Feed::DealType[:free] %>) {
+        $('.form-group.deal_type').hide();
+      } 
+    }
+  });
+</script>
+<%= form_for([@store, @feed], html: { multipart: true, class: "form-horizontal deal_form"}) do |f| %>
+  <%= render "shared/error_messages", target: @feed %> 
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :valid_at, class: "col-sm-3 control-label" %>
+        <div class="col-sm-9">
+          <label class="checkbox-inline">
+            <%= f.radio_button :valid_at, Feed::ValidAt[:store] %> Store
+          </label>
+          <label class="checkbox-inline">
+            <%= f.radio_button :valid_at, Feed::ValidAt[:online] %> Online
+          </label>
+        </div>  
+      </div>
+
+      <div class="form-group">
+        <%= f.label :feed_type, class: "col-sm-3 control-label" %>
+        <div class="col-sm-9">
+          <label class="checkbox-inline">
+            <%= f.radio_button :feed_type, Feed::FeedType[:image] %> Image with Text
+          </label>
+          <label class="checkbox-inline">
+            <%= f.radio_button :feed_type, Feed::FeedType[:text] %> Text Only
+          </label>
+          <label class="checkbox-inline">
+            <%= f.radio_button :feed_type, Feed::FeedType[:attachment] %> Attachment
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-sm-3 control-label">Deal</label>
+        <div class="col-sm-8">
+          <%= f.select(:deal_id, @deals.collect {|p| [ p.main_line, p.id ] }, { include_blank: "Please select"}, {class: "form-control"}) %>
+        </div>  
+      </div>
+
+      <div class="form-group">
+        <%= f.label 'Title *',class: "col-sm-3 control-label" %>
+        <div class="col-sm-8">
+          <%= f.text_field :title, class: "form-control" %>
+        </div>  
+      </div>
+
+      <div class="form-group">
+        <%= f.label :description, class: "col-sm-3 control-label" %>
+        <div class="col-sm-8">
+          <%= f.text_area :description, rows: 5, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :termsandconditions, 'Terms & Conditions',class: "col-sm-3 control-label" %>
+        <div class="col-sm-8">
+          <%= f.text_area :termsandconditions, rows: 5, class: "form-control" %>
+        </div>  
+      </div>
+
+      <div class="form-group">
+        <%= f.label :features, 'Features',class: "col-sm-3 control-label" %>
+        <div class="col-sm-8">
+          <%= f.text_area :features, rows: 5, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6"> 
+      <div class="form-group">
+        <%= f.label :deal_type, class: "col-sm-3 control-label" %>
+        <div class="col-sm-8">
+          <%= f.select :deal_type, [
+            ['Percent off', Feed::DealType[:po]], 
+            ['Amount off', Feed::DealType[:ao]],
+            ['Buy one, Get one', Feed::DealType[:bogo]],
+            ['Freebies', Feed::DealType[:free]]], {}, {class: "form-control"} %>
+        </div>  
+      </div>
+
+      <div class='form-group deal_type deal_type_<%= Feed::DealType[:po] %>'>
+        <%= f.label :percent_value, 'Percent off(%)',class: "col-sm-3 control-label" %>
+        <div class="col-sm-4">
+          <%= f.number_field :percent_value, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class='form-group deal_type deal_type_<%= Feed::DealType[:ao] %>'>
+        <%= f.label :amount_value, 'Amount value',class: "col-sm-3 control-label" %>
+        <div class="col-sm-4">
+          <%= f.number_field :amount_value, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class='form-group deal_type deal_type_<%= Feed::DealType[:bogo] %>'>
+        <%= f.label 'BOGO',class: "col-sm-3 control-label" %>
+        <div class="input-group padding-15 col-sm-3">
+          <%= f.number_field :buy_value, class: "form-control" %>
+          <span class="input-group-addon" >Buy</span>
+        </div>
+        <div class="input-group padding-15 col-sm-3">
+          <%= f.number_field :get_value, class: "form-control" %>
+          <span class="input-group-addon">Get</span>
+        </div>
+      </div>
+
+      <div class='form-group'>
+        <%= f.label :total_available,class: "col-sm-3 control-label" %>
+        <div class="col-sm-4">
+          <%= f.number_field :total_available, class: "form-control" %>
+        </div>
+      </div>
+
+      <div class="form-group days">
+        <%= f.label :days, class: "col-sm-3 control-label" %>
+        <div class="col-sm-8">
+        <div class="days-block">
+          <label>All</label><%= check_box :feed, :days, {multiple: true }, nil, nil %>
+        </div>
+          <div class="days-block">
+            <label>Sun </label><%= check_box :feed, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('0')}, 0, nil %>
+          </div>
+          <div class="days-block">
+            <label>Mon </label><%= check_box :feed, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('1')}, 1, nil %>
+          </div>
+          <div class="days-block">
+            <label>Tue </label><%= check_box :feed, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('2')}, 2, nil %>
+          </div>
+          <div class="days-block">
+            <label>Wed </label><%= check_box :feed, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('3')}, 3, nil %>
+          </div>
+          <div class="days-block">
+            <label>Thu </label><%= check_box :feed, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('4')}, 4, nil %>
+          </div>
+          <div class="days-block">
+            <label>Fri </label><%= check_box :feed, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('5')}, 5, nil %>
+          </div>
+          <div class="days-block">
+            <label>Sat </label><%= check_box :feed, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('6')}, 6, nil %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="input_date">
+    <hr></hr>
+    <%= render "feeds/input_template/age_and_date", f: f %>
+  </div>
+
+  <div class="input_image">
+    <hr></hr>
+    <%= render "feeds/input_template/image", f: f %>
+  </div>
+
+    <div class="col-md-6 input_outlets">
+    <% if @outlets %>
+      <div class="form-group">
+        <%= f.label :outlet_ids, 'Outlets',class: "col-sm-3 control-label" %>
+        <div class="col-sm-8">
+          <% @outlets.each do |outlet| %>
+              <%= check_box :feed, :outlet_ids, {multiple: true}, outlet.id, nil %> <label><%= outlet.locality %></label><br>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit 'Submit', class: "btn btn-default" %>
+    </div>
+  </div>
+<% end %>

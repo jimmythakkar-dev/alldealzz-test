@@ -1,0 +1,87 @@
+<div class="col-md-6 input_price">
+  <div class="form-group">
+    <%= label_tag :price_allowed, 'Price Allowed',class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= check_box_tag :price_allowed,'Price allowed', price_fields_allowed  %>
+    </div>
+  </div>
+  <% style_class = price_fields_allowed ? 'price-allowed' : 'price-unallowed' %>
+  <div class='form-group <%=style_class%>'>
+    <%= f.label :price, 'Actual Price',class: "col-sm-3 control-label" %>
+    <div class="col-sm-4">
+      <%= f.text_field :price, class: "form-control" %>
+    </div>
+  </div>
+  <div class='form-group <%=style_class%>'>
+    <%= f.label :discounted_price, class: "col-sm-3 control-label" %>
+    <div class="col-sm-4">
+      <%= f.text_field :discounted_price, class: "form-control" %>
+    </div>
+  </div>
+  <div class='form-group'>
+    <%= f.label :commission_percent, 'Commission(%)',class: "col-sm-3 control-label" %>
+    <div class="col-sm-4">
+      <%= f.text_field :commission_percent, class: "form-control" %>
+    </div>
+  </div>
+  <div class='form-group'>
+    <%= f.label :internet_handling_charges, 'Internet Handling Charges (%)',class: "col-sm-3 control-label" %>
+    <div class="col-sm-4">
+      <%= f.text_field :internet_handling_charges, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :approx_date_flag, 'Approx Date Flag', class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.check_box :approx_date_flag %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :is_sponsored, 'Sponsored Deal', class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.check_box :is_sponsored %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :sponsor_order, 'Sponsor Order', class: "col-sm-3 control-label" %>
+    <div class="col-sm-4">
+      <%= f.text_field :sponsor_order, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :last_start_time, 'Start time', class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.time_select :last_start_time, class: "form-control" %>
+    </div>  
+  </div>
+  <div class="form-group">
+    <%= f.label :last_end_time, 'End time', class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.time_select :last_end_time, class: "form-control" %>
+    </div>  
+  </div>
+  <div class="form-group">
+    <%= f.label :display_timings, 'Timings Compulsory?', class: "col-sm-3 control-label" %>
+    <div class="col-sm-8">
+      <%= f.check_box :display_timings %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :valid_for, 'Valid For People',class: "col-sm-3 control-label" %>
+    <div class="col-sm-4">
+      <%= f.text_field :valid_for, class: "form-control"  %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :appointment_mandatory, 'Appointment Mandatory?',class: "col-sm-3 control-label" %>
+    <div class="col-sm-4">
+      <%= f.check_box :appointment_mandatory %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= label_tag :restrict_points, 'Restrict to Use Points?',class: "col-sm-3 control-label" %>
+    <div class="col-sm-4">
+      <%= f.check_box :restrict_points %>
+    </div>
+  </div>
+</div>

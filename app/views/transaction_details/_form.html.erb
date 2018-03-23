@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-5">
+    <%= form_for(transaction_detail, html: {class: "form-horizontal"}) do |f| %>
+        
+      <%= render "shared/error_messages", target: f.object %>
+      
+      <div class="form-group">
+        <%= f.label :product_info, class: "col-sm-2 control-label" %>
+        <div class="col-sm-10">
+          <%= f.text_field :product_info, class: "form-control", disabled: true %>
+        </div>  
+      </div>
+
+      <div class="form-group">
+        <%= f.label :payu_id, class: "col-sm-2 control-label" %>
+        <div class="col-sm-10">
+          <%= f.text_field :payu_id, class: "form-control", disabled: true %>
+        </div>  
+      </div>
+
+      <div class="form-group">
+        <%= f.label :payment_status, class: "col-sm-2 control-label" %>
+        <div class="col-sm-10">
+          <%= f.text_field :payment_status, class: "form-control", disabled: true %>
+        </div>  
+      </div>
+
+      <div class="form-group">
+        <%= f.label :quantity, class: "col-sm-2 control-label" %>
+        <div class="col-sm-10">
+          <%= f.text_field :quantity, class: "form-control", disabled: true %>
+        </div>  
+      </div>
+
+      <div class="form-group">
+        <%= f.label :total_amount, 'Settlement Amount',class: "col-sm-2 control-label" %>
+        <div class="col-sm-10">
+          <%= f.text_field :total_amount, value: transaction_detail.deal.settlement_amount(transaction_detail.quantity), class: "form-control", disabled: true %>
+        </div>  
+      </div>
+
+
+      <div class="form-group">
+         <%= label_tag :deal, 'Deal',class: "col-sm-2 control-label" %>
+         <div class="col-sm-10">
+           <%= link_to "#{transaction_detail.deal.main_line}", [transaction_detail.deal.store, transaction_detail.deal], class: 'btn btn-link' %>
+         </div>
+      </div>
+
+    <div class="form-group">
+      <%= label_tag :phone_number, 'Customer Number',class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= text_field_tag 'Customer Number', transaction_detail.end_user.phone_number, class: "form-control", disabled: true  %>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <%= f.label :cashback_code,'Cashback Code Applied', class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= text_field_tag 'cashback code', transaction_detail.cashback.try(:code) , class: "form-control", disabled: true %>
+      </div>  
+    </div>
+
+    <div class="form-group">
+      <%= f.label :points, 'Points used', class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= text_field_tag 'points', transaction_detail.try(:points), class: "form-control", disabled: true %>
+      </div>  
+    </div>
+
+      <div class="form-group">
+        <%= f.label :bank_ref_id, class: "col-sm-2 control-label" %>
+        <div class="col-sm-10">
+          <%= f.text_field :bank_ref_id, class: "form-control" %>
+        </div>  
+      </div>
+
+      <div class="form-group">
+        <%= f.label :settlement_date, class: "col-sm-2 control-label" %>
+        <div class="col-sm-10">
+          <%= f.date_field :settlement_date, class: "form-control" %>
+        </div>  
+      </div>
+      <div class="form-group">
+      <%= f.label :refund, class: "col-sm-2 control-label" %>
+        <div class="col-sm-8">
+        <%= f.check_box :refund, data: {size: "small", toggle: "toggle"} %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <%= f.submit 'Submit', class: "btn btn-default" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

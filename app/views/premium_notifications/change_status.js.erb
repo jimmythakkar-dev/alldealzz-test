@@ -1,0 +1,5 @@
+$("tbody.tbody-list").html("<%= escape_javascript(render(partial: 'list', 
+  locals: {store: @store, premium_notifications: @premium_notifications})) %>");
+if(<%= !@sucess %>){
+  alert('Premium notification status not changed.');
+};

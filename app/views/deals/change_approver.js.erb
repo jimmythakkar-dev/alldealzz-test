@@ -1,0 +1,8 @@
+var element = $("tr.deal_listing_row_<%= @deal.id %>");
+element.html("<%= escape_javascript(render(partial: 'deals/listing/row', locals: {deal: @deal})) %>");
+if(<%= !@sucess %>){
+  alert('Deal approver not changed.');
+};
+
+input_button_on_off_change(element.find('input.button-on-off'), 'change_status');
+input_button_on_off_change(element.find('input.button-approved-unapproved'), 'change_approver');

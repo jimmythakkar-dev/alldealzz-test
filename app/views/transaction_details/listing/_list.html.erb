@@ -1,0 +1,41 @@
+<div class="table-responsive">
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Payment_id</th>
+        <th>Tracn Amt</th>
+        <th>Deal Amt</th>
+        <th>Store</th>
+        <th>Redeem Status</th>
+        <th>Com(%)</th>
+        <th>IHC(%)</th>
+        <th>Settlement Amt</th>
+        <th>Bank Ref Id</th>
+        <th>Redeem date</th>
+        <th class="action">Settlement status</th>
+        <th>Settlement date</th>
+        <th>Order Date</th>
+        <th class="col-md-4 action">Action</th>
+      </tr>
+    </thead>
+
+    <tbody class="tbody-list">
+      <% transaction_details.each do |transaction_detail| %>
+        <tr class="row_transaction_detail<%= transaction_detail.id %>">
+          <%= render 'transaction_details/listing/row', transaction_detail: transaction_detail %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <% unless transaction_details.present? %>
+    <span class="badge alert-danger">Results not found</span>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= paginate transaction_details, :params => { controller: :transaction_details, action: :index }, remote: true %>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<td><%= link_to user.identifier, user %></td>
+<td><%= merchantable_link_to user %></td>
+<td class="action">
+  <%-if user.store %> 
+    <% unapproved_deals_count = user.store.unapproved_deals.count %>
+    <%-if unapproved_deals_count <= 0 %>
+      <span class="badge alert-success"><%= unapproved_deals_count %></span>
+    <%-else %>
+      <span class="badge alert-danger"><%= unapproved_deals_count %></span>
+    <%-end %>
+  <%-end %>
+</td>
+<td class="action">
+  <span class="badge alert-info"><%= user.requested_notifications.pending.count %></span>
+  <span class="badge alert-success"><%= user.requested_notifications.approved.count %></span>
+  <span class="badge alert-danger"><%= user.requested_notifications.rejected.count %></span>
+  <span class="badge alert-default"><%= user.requested_notifications.delivered.count %></span>
+</td>
+<td class="action">
+  <%-if user.is_lmd_live_without_approval? %>
+    <span class="badge alert-success">Yes</span>
+  <%-else %>
+    <span class="badge alert-danger">No</span>
+  <%-end %>
+</td> 
+<td class="action">
+  <%-if user.status? %>
+    <span class="badge alert-success">Yes</span>
+  <%-else %>
+    <span class="badge alert-danger">No</span>
+  <%-end %>
+</td>  
+<td class="action"><input type="checkbox" class="button-on-off" data-toggle="toggle" value="<%= user.id %>" data-size="small" <%= 'checked' if user.status %> ></td>
+<td class="col-md-3 action">
+  <%= link_to 'Redeem', redeem_merchant_user_path(user), class: 'btn btn-primary btn-sm' %>
+  <%= link_to 'Edit', [:edit, user], class: 'btn btn-primary btn-sm' %>
+  <%= link_to 'Notifications', merchant_user_requested_notifications_path(user),
+        class: 'btn btn-primary btn-sm' %>
+</td>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("tr.row_merchant_user_"+<%= user.id %>).find('input.button-on-off').bootstrapToggle();
+    $("tr.row_merchant_user_"+<%= user.id %>).find('input.button-on-off').on('change', function(){
+      $.ajax({
+        type: "POST",
+        url: "/merchant_users/"+$(this).val()+"/change_status"
+      });
+    });
+  });
+</script>

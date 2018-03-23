@@ -1,0 +1,269 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    view_last_minute_deal_input();
+    function view_last_minute_deal_input() {
+      if('<%= @deal.is_last_minute_deal? %>' == "true") {
+        $('.last_minute_deal_is_true').show(); $('.last_minute_deal_is_false').hide();
+      } else {
+        $('.last_minute_deal_is_true').hide(); $('.last_minute_deal_is_false').show();
+      }
+    }
+  });
+</script>
+
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Deal") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= deal_breadcrumb_list(@deal, 'Deal Information') %>
+</ol>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+     <div class="row">
+      <div class="col-md-11">
+        <h4>Deal :  <span class="label label-default"><%= @deal.main_line.capitalize %></span></h4>
+      </div>  
+      <div class="col-md-1">
+        <%= link_to 'Edit', edit_store_deal_path(@store, @deal), class: "btn btn-default" %>
+      </div>
+    </div>
+    
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          <strong>Main line:</strong>
+          <%= @deal.main_line %>
+        </p>
+        <p>
+          <strong>Terms & Conditions:</strong>
+          <%= @deal.termsandconditions %>
+        </p>
+        <p>
+          <strong>Features:</strong>
+          <%= @deal.features %>
+        </p>
+        <p>
+          <strong>Total Quantity:</strong>
+          <%= @deal.max_quantity %>
+        </p>
+
+        <p>
+          <strong>Max Quantity Per User:</strong>
+          <%= @deal.quantity_per_user %>
+        </p>
+
+        <p>
+          <strong>Max Bookings Allowed Per User:</strong>
+          <%= @deal.max_bookings %>
+        </p>
+
+        <p>
+          <strong>Deal type:</strong>
+          <%= @deal.deal_type_to_s.try(:humanize) %>
+        </p>
+
+        <p>
+          <strong>Category:</strong>
+          <%= @deal.root_deal_category.try(:name) %>
+        </p>
+
+        <p>
+          <strong>Status:</strong>
+          <%-if @deal.status %>
+            <span class="badge alert-success">On</span>
+          <%-else %>
+            <span class="badge alert-danger">Off</span>
+          <%-end %>
+        </p>
+      </div>  
+
+      <div class="col-md-3">
+        <p>
+          <strong>Actual Price:</strong>
+          <%= @deal.price %>
+        </p>
+        <p>
+          <strong>Discounted Price:</strong>
+          <%= @deal.discounted_price %>
+        </p>
+        <p>
+          <strong>Commission(%):</strong>
+          <%= @deal.commission_percent %>
+        </p>
+        <p>
+          <strong>Internet Handling Charges(%):</strong>
+          <%= @deal.internet_handling_charges %>
+        </p>
+        <p>
+          <strong>Approx Date Flag:</strong>
+          <%= @deal.approx_date_flag %>
+        </p>
+        <p>
+          <strong>Is Deal Sponsored:</strong>
+          <%= @deal.is_sponsored? %>
+        </p>
+        <p>
+          <strong>Sponsor Order:</strong>
+          <%= @deal.sponsor_order %>
+        </p>
+        <p>
+          <strong>Timings Compulsory?:</strong>
+          <%= @deal.display_timings %>
+        </p>
+        <p>
+          <strong>Start time:</strong>
+          <%= @deal.last_start_time.strftime("%H:%M") rescue false %>
+        </p>
+        <p>
+          <strong>End time:</strong>
+          <%= @deal.last_end_time.strftime("%H:%M") rescue false %>
+        </p>
+        <p>
+          <strong>valid For People:</strong>
+          <%= @deal.valid_for %>
+        </p>
+        <p>
+          <strong>Appointment Mandatory?:</strong>
+          <%= @deal.appointment_mandatory %>
+        </p>
+        <p>
+          <strong>Restrict to Use Points?:</strong>
+          <%= @deal.restrict_points %>
+        </p>
+      </div>
+      <div class="col-md-3 last_minute_deal_is_true">
+        <p>
+          <strong>Total Coupons:</strong>
+          <%= @deal.last_coupons %>
+        </p>
+        <p>
+          <strong>Remaining Coupons:</strong>
+          <%= @deal.remaining_last_coupons %>
+        </p>
+        <!-- <p>
+          <strong>Daily Quantity Quota:</strong>
+          <%#= @deal.daily_quantity_quota %>
+        </p> -->
+      </div>
+      <div class="col-md-6 last_minute_deal_is_true ">
+        <% if @deal.outlet_ids.present?%>
+            <p>
+              <strong>Outlets for this deal:</strong>
+              <strong><%= show_outlets(@deal) %></strong>
+            </p>
+        <% end %>
+      </div>  
+    </div>
+   
+    <div class="row">
+      <hr></hr>
+      <div class="col-md-6 last_minute_deal_is_false">
+       <p>
+          <strong> Location Based Gender:</strong>
+          <%= @deal.gender_text.capitalize %>
+        </p>
+        <p>
+          <strong>Location Based Age Limit ?:</strong>
+          <%= @deal.is_age_limit %>
+        </p>
+        <p>
+          <strong>Location Based Age from:</strong>
+          <%= @deal.age_from %>
+        </p>
+        <p>
+          <strong>Location Based Age to:</strong>
+          <%= @deal.age_to %>
+        </p>
+      </div>
+
+      <div class="col-md-6">
+        <p>
+          <strong>Publish immediately:</strong>
+          <%= @deal.publish %>
+        </p>
+        <p>
+          <strong>Publish date:</strong>
+          <%= @deal.publish_date.strftime("%Y-%m-%d %H:%M") %>
+        </p>
+        <p>
+          <strong>Expiry date:</strong>
+          <%= @deal.expiry_date.strftime("%Y-%m-%d %H:%M") %>
+        </p>
+        <!-- <p>
+          <strong>Duration:</strong>
+          <%#= pluralize(@deal.duration, 'Day') %>
+        </p> -->
+        <p>
+          <strong>Remaining days:</strong>
+          <%- if @deal.package_days.present? %>
+            <%= @deal.package_days %> Days
+          <% end -%>
+        </p>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <hr></hr>  
+      <div class="col-md-3">
+        <p>
+          <strong>Front Image:</strong>
+          <%- if @deal.main_image.present? %>
+            <img src='<%= @deal.main_image.url %>' width='100' height='100'> 
+          <% end -%>
+        </p>
+      </div>
+      <div class="col-md-3">
+        <p>
+          <strong>Collage Image:</strong>
+          <%- if @deal.featured_image.present? %>
+            <img src='<%= @deal.featured_image.url %>' width='100' height='100'>
+          <% end -%>
+        </p>
+      </div>
+      <div class="col-md-12">
+        <p>
+          <strong>Deal Detail Images:</strong>
+          <ul class="list-inline">
+          <%- unless @deal_detail_images.empty? %>
+            <% @deal_detail_images.each do |pic| %>
+            <li id="deal_detail_image_<%= pic.id %>">
+             <div>
+            <img src='<%= pic.image.url %>' width='100' height='100'>
+            </div>
+            <div>
+              <%= link_to 'Delete', store_deal_remove_image_path(:action=>"remove_image", deal_detail_images_id: pic.id, deal_id: @deal.id), method: :post, data: {confirm: "Are you sure?"} %>
+            </div>
+            </li>
+          <% end -%>
+          <% end -%>
+          </ul>
+        </p>
+      </div>
+
+      <div class="col-md-6">
+        <p>
+          <strong>Notification text:</strong>
+          <%= @deal.notification_text %>
+        </p>
+        <hr></hr>
+        <p>
+          <strong>Notification time from:</strong>
+          <%= @deal.notification_time_from.strftime("%H:%M") %>
+        </p>
+        <p>
+          <strong>Notification time to:</strong>
+          <%= @deal.notification_time_to.strftime("%H:%M") %>
+        </p>
+        <p>
+          <strong>Days:</strong>
+          <%= @deal.days_text %>
+        </p>
+      </div>
+    </div> 
+  </div>
+</div>

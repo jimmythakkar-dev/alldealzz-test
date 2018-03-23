@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-lg-6">
+    <%= paginate notifications, :params => { controller: :notifications, action: :index }, remote: true %>
+  </div>
+  <div class="col-lg-3"></div>
+  <div class="col-lg-3">
+    <%= search_field_tag :search, params[:search], placeholder: 'Search b/w dates', class: "form-control", width: '200px' %>Like : 2016/04/01 - 2016/04/28
+    <!-- <span class="input-group-btn">
+      <button class="btn btn-default" type="button">Go!</button>
+    </span> -->
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Sent?</th>
+        <th>Created</th>
+        <th>Success & Failed</th>
+        <th>Mobile type</th>
+        <th>Send For</th>
+        <th class="col-md-4">Destinations</th>
+      </tr>
+    </thead>
+
+    <tbody class="tbody-list">
+      <% notifications.each do |notification| %>
+        <tr>
+          <td><b><%= notification.id %></b></td>
+          <td><%- if notification.sent? %>
+              <span class="label label-success">Yes</span>
+            <% else %>
+              <span class="label label-warning">No</span>
+            <% end %>
+          </td>
+          <td><%= notification.updated_at.strftime("%Y-%m-%d %H:%M") %></td>
+          <td><%= notification.success.to_i %> / 
+            <span class="label label-as-badge <%= notification.failed.to_i > 0 ? 'label-danger' : 'label-success' %>">
+              <%= notification.failed.to_i %>
+            </span>
+          </td>
+          <td><%= 
+            if notification.app.is_a? RailsPushNotifications::GCMApp
+              'Google'
+            elsif notification.app.is_a? RailsPushNotifications::APNSApp
+              'Apple'
+            end  
+            %>
+          </td>
+          <td><%= 
+              if notification.sendible.present? 
+                if notification.sendible.is_a?(Deal)
+                  store = notification.sendible.store
+                  link_to("#{notification.sendible_type} - #{notification.sendible.main_line}", [store, notification.sendible])
+                else
+                  link_to("#{notification.sendible_type} - #{notification.sendible.name}", notification.sendible) rescue "#{notification.sendible_id}:#{notification.sendible_type}"
+                end  
+              else
+                "Globe"
+              end
+            %>
+          </td>
+          <td class="col-md-4">
+            <%= notification.resource_owners.first(5).map { |e| e.try(:profile_name) }.to_sentence %> <b>...</b>
+          </td>
+        </tr>  
+      <% end %>
+    </tbody>
+  </table>
+  <% unless notifications.present? %>
+    <span class="badge alert-danger">Results not found</span>
+  <% end %>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <%= paginate notifications, :params => { controller: :notifications, action: :index }, remote: true %>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('input#search').keyup(function(e) {
+      if(e.keyCode == 13) {
+        $.ajax({
+          type: "GET",
+          dataType: "script",
+          url: "notifications",
+          data: { search:  $(this).val() }
+        });
+      }
+    });
+  });
+</script>

@@ -1,0 +1,1 @@
+$("tr.row_booking_code_"+<%= @booking_code.id %>).html("<%= escape_javascript(render(partial: 'merchant_users/listing/booking_code_row', locals: {booking_code: @booking_code})) %>");

@@ -1,0 +1,36 @@
+<div class="row title_header">
+  <div class="col-md-8">
+  	<%= title_header(@mall, "Malls") %>
+  </div>
+  <div class="col-md-3 actions">
+    <%= link_to 'New Mall', new_mall_path, class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= mall_breadcrumb_list(nil, 'Malls') %>
+</ol>
+
+<div class="table-responsive">
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Contact</br>Phone</th>
+        <th>Contact</br>Person</th>
+        <th class="action">Remaining</br>Days</th>
+        <!-- <th class="action">Store</br>Category</th> -->
+        <th class="action">Allowed</th>
+        <th class="action">Status</th>
+        <th class="col-md-2 action">Action</th>
+      </tr>
+    </thead>
+
+    <tbody class="tbody-list">
+      <%= render 'list', malls: @malls %>
+    </tbody>
+  </table>
+</div>

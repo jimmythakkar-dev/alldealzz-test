@@ -1,0 +1,8 @@
+
+var element = $("tr.cashback_listing_row_<%= @cashback.id %>");
+element.html("<%= escape_javascript(render(partial: 'cashbacks/listing/row', locals: {cashback: @cashback})) %>");
+if(<%= !@sucess %>){
+  alert('Cashback status not changed.');
+};
+
+input_button_on_off_change(element.find('input.button-on-off'), 'change_status');

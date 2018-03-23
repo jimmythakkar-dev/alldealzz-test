@@ -1,0 +1,16 @@
+<div class="row title_header">
+  <div class="col-md-8">
+    <%= title_header(@merchant_user, "Requested notifications") %>
+  </div>
+  <div class="col-md-3 actions">
+    <%= link_to 'New Request', new_requested_notification_path, class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= merchant_user_breadcrumb_list(@merchant_user, 'Requested notifications') %>
+</ol>
+
+<div class="merchant_notification_list">
+  <%= render 'list', notifications: @merchant_user_requested_notifications %>
+</div>

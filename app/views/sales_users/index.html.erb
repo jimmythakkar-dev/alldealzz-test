@@ -1,0 +1,33 @@
+<div class="row title_header">
+  <div class="col-md-8">
+    <%= title_header(@sales_user, "Sales Executives") %>
+  </div>
+  <div class="col-md-3 actions">
+    <%= link_to 'New Sales User', new_sales_user_path, class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= sales_user_breadcrumb_list(nil, 'Sales Users') %>
+</ol>
+
+<div class="table-responsive">
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Password</th>
+        <th>Name</th>
+        <th>Contact</br>Phone</th>
+        <th>Store</br>Dwlds</th>
+        <th class="action">Status</th>
+        <th class="col-md-2 action">Action</th>
+      </tr>
+    </thead>
+
+    <tbody class="tbody-list">
+      <%= render 'list', sales_users: @sales_users %>
+    </tbody>
+  </table>
+</div>

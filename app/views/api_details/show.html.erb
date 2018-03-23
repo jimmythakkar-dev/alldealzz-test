@@ -1,0 +1,43 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@api_detail, "API Detail") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= api_detail_breadcrumb_list(@api_detail, 'API Detail Information') %>
+</ol>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+   <div class="row"> 
+    <div class="col-md-1">
+      <%= link_to 'Edit', edit_api_detail_path(@api_detail), class: "btn btn-default" %>
+    </div>
+  </div>
+
+</div>
+<div class="panel-footer">
+  <div class="row">
+    <div class="col-md-6">
+      <p>
+        <strong>Api version:</strong>
+        <%= @api_detail.api_version %>
+      </p>
+      <p>
+        <strong>Device Type:</strong>
+        <%= @api_detail.device_type_to_s.try(:humanize) %>
+      </p>
+      <p>
+       <strong>App Version:</strong> 
+       <%= @api_detail.app_version %>
+      </p>
+      <p>
+        <strong>Message:</strong>
+        <%= @api_detail.message %>
+      </p>
+      <p>
+        <strong>Update Type:</strong>
+        <%= @api_detail.app_type_to_s.try(:humanize) %>
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<% outlets.each do |outlet| %>
+  <tr>
+    <td><%= outlet.locality %></td>
+    <td><%= outlet.contact_phone %></td>
+    <td><%= outlet.phone_number %></td>
+    <td class="action">
+    <input type="checkbox" class="button-on-off" data-toggle="toggle" value="<%= outlet.id %>" data-store-id="<%= outlet.store.id %>" data-size="small" <%= 'checked' if outlet.status %> >
+    </td>
+    <td class='action'>
+      <%= link_to 'Show', [outlet.store, outlet], class: 'btn btn-primary btn-sm' %>
+      <%= link_to 'Edit', edit_store_outlet_path(outlet.store, outlet), class: 'btn btn-primary btn-sm' %>
+    </td>
+  </tr>
+<% end %>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('input.button-on-off').bootstrapToggle();
+    $('input.button-on-off').change(function(){
+      $.ajax({
+        type: "POST",
+        url: "/stores/"+$(this).data('store-id')+"/outlets/"+$(this).val()+"/change_status",
+        data: { page: <%= params[:page] || 1 %> }
+      });
+    });
+  });
+</script>

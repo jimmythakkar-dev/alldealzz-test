@@ -1,0 +1,6 @@
+$("tr.row_sales_user_store_"+<%= @sales_user_store.id %>).html("<%= escape_javascript(render(partial: 'sales_users/store_row', locals: {store: @sales_user_store})) %>");
+if(<%= !@sucess %>){
+  alert("Store is not created. <%= @errors %>");
+} else {
+  alert('Store is created.');
+}

@@ -1,0 +1,26 @@
+<td><%= store.name %></td>
+<td><%= store.user.email %></td>
+<td><%= store.phone %></td>
+<td><%= store.referral_code %></td>
+<td><%= store.end_user_store_ref_codes.count %></td>
+<!-- <td class="action"><%= store.package_days %></td> -->
+<td class="action">
+  <% unapproved_deals_count = store.unapproved_deals.count %>
+  <%-if unapproved_deals_count <= 0 %>
+    <span class="badge alert-success"><%= unapproved_deals_count %></span>
+  <%-else %>
+    <span class="badge alert-danger"><%= unapproved_deals_count %></span>
+  <%-end %>
+</td>
+<td class="action">
+  <%-if store.allowed? %>
+    <span class="badge alert-success">Yes</span>
+  <%-else %>
+    <span class="badge alert-danger">No</span>
+  <%-end %>
+</td>  
+<td class="action"><input type="checkbox" class="button-on-off" data-toggle="toggle" value="<%= store.id %>" data-size="small" <%= 'checked' if store.status %> ></td>
+<td class="action">
+  <%= link_to 'Show', store_dashboard_path(store), class: 'btn btn-primary btn-sm' %>
+  <%= link_to 'Edit', edit_store_path(store), class: 'btn btn-primary btn-sm' %>
+</td>

@@ -1,0 +1,142 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    
+  });
+</script>
+
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Feed") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= feed_breadcrumb_list(@feed, 'Feed Information') %>
+</ol>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+     <div class="row">
+      <div class="col-md-11">
+        <h4>Feed :  <span class="label label-default"><%= @feed.title.capitalize %></span></h4>
+      </div>  
+      <div class="col-md-1">
+        <%= link_to 'Edit', edit_store_feed_path(@store, @feed), class: "btn btn-default" %>
+      </div>
+    </div>
+    
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          <strong>Title:</strong>
+          <%= @feed.title %>
+        </p>
+        <p>
+          <strong>Terms & Conditions:</strong>
+          <%= @feed.termsandconditions %>
+        </p>
+        <p>
+          <strong>Description:</strong>
+          <%= @feed.description %>
+        </p>
+        <p>
+          <strong>Features:</strong>
+          <%= @feed.features %>
+        </p>
+        <p>
+          <strong>Deal:</strong>
+          <%= @feed.deal.try(:main_line) %>
+        </p>
+        
+        <p>
+          <strong>Deal type:</strong>
+          <%= @feed.deal_type_to_s.try(:humanize) %>
+        </p>
+
+        <p>
+          <strong>Category:</strong>
+          <%= @feed.valid_at_to_s.try(:humanize) %>
+        </p>
+
+        <p>
+          <strong>Feed Type:</strong>
+          <%= @feed.feed_type_to_s.try(:humanize) %>
+        </p>
+
+        <p>
+          <strong>Status:</strong>
+          <%-if @feed.status %>
+            <span class="badge alert-success">On</span>
+          <%-else %>
+            <span class="badge alert-danger">Off</span>
+          <%-end %>
+        </p>
+
+        <p>
+          <strong>Valid On Days:</strong>
+          <%= @feed.days_text %>
+        </p>
+
+        <% if @feed.outlet_ids.present?%>
+            <p>
+              <strong>Outlets for this Feed:</strong>
+              <strong><%= show_outlets(@feed) %></strong>
+            </p>
+        <% end %>
+      </div>
+
+    </div>
+   
+    <div class="row">
+      <hr></hr>
+      <div class="col-md-6">
+        <p class="last_minute_deal_is_false">
+          <strong>Publish immediately:</strong>
+          <%= @feed.publish %>
+        </p>
+        <p>
+          <strong>Publish date:</strong>
+          <%= @feed.publish_date.strftime("%Y-%m-%d %H:%M") %>
+        </p>
+        <p>
+          <strong>Duration:</strong>
+          <%= pluralize(@feed.duration, 'Day') %>
+        </p>
+        <p>
+          <strong>Remaining days:</strong>
+          <%- if @feed.package_days.present? %>
+            <%= @feed.package_days %> Days
+          <% end -%>
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <hr></hr>  
+      <div class="col-md-3">
+        <p>
+          <strong>Photo:</strong>
+          <%- if @feed.photo.present? %>
+            <img src='<%= @feed.photo.url %>' width='100' height='100'> 
+          <% end -%>
+        </p>
+      </div>
+      <div class="col-md-12">
+        <p>
+          <strong>Feed Detail Images:</strong>
+          <ul class="list-inline">
+          <%- unless @feed_detail_images.empty? %>
+            <% @feed_detail_images.each do |pic| %>
+            <li id="feed_detail_image_<%= pic.id %>">
+             <div >
+            <img src='<%= pic.image.url %>' width='100' height='100'>
+            </div>
+            </li>
+          <% end -%>
+          <% end -%>
+          </ul>
+        </p>
+      </div>
+    </div> 
+  </div>
+</div>

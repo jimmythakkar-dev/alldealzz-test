@@ -1,0 +1,13 @@
+<div class="row title_header">
+  <div class="col-md-8">
+    <%= title_header(@merchant_user, "New notification request") %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= merchant_user_breadcrumb_list(@merchant_user, 'New notification request') %>
+</ol>    
+    
+<div class="requested_notifications_form">
+  <%= render 'requested_notifications/form', requested_notification: @requested_notification %>
+</div>

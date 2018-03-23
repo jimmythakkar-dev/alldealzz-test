@@ -1,0 +1,3 @@
+$(".cashbacks_list").html("<%= escape_javascript(render(partial: 'cashbacks/listing/list', locals: {cashbacks: @cashbacks})) %>");
+input_button_on_off_change($('input.button-on-off'), 'change_status');
+

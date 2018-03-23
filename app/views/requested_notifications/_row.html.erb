@@ -1,0 +1,59 @@
+<td><b><%= notification.id %></b></td>
+<td class="col-md-2"><%= notification.message %></td>
+<td class="col-md-2">
+  <%- if notification.merchantable %>
+    <%= merchantable_link_to notification %></td>
+  <%- elsif notification.merchant_user %> 
+    <b>Merchant user : </b><%= merchantable_link_to notification.merchant_user %></td> 
+  <%- end %>
+</td>
+<td class="col-md-2">
+  <%- if notification.deal %>
+    <%= link_to notification.deal.main_line, [notification.deal.store, notification.deal] %></td>
+  <%- end %>
+<td class="col-md-2">
+  <b> Target to : </b><%= notification.target_to %></br>
+  <b> Target device : </b> <%= notification.target_device %></br>
+  <b> Target age limit ? : </b> <%= notification.target_is_age_limit %></br>
+  <b> Target age from : </b> <%= notification.target_age_from %></br>
+  <b> Target age to : </b> <%= notification.target_age_to %></br>
+  <b> Target gender : </b><%= RequestedNotification::GENDER[notification.target_gender] %></br>
+  <b> Target city : </b><%= notification.try(:city).try(:name) || "all" %>
+  <b> Target deal category : </b><%= notification.try(:target_deal_category).try(:name) || "all" %>
+</td>
+<td class="action">
+  <%
+    alert_status = if notification.pending?
+      'alert-info'
+    elsif notification.approved?
+      'alert-success'      
+    elsif notification.rejected?
+      'alert-danger'
+    else
+      'alert-default'
+    end  
+  %>
+  <span class="badge <%= alert_status %>">
+    <%= notification.aasm.current_state %>
+  </span>
+</td>  
+
+  <% if current_user.super_admin? %>
+<td class="col-md-3 action">
+  <% if notification.may_approve? %>
+    <%= link_to 'Approve', approve_requested_notification_path(notification), 
+        remote: true, method: :post, class: 'btn btn-success btn-sm',
+        data:{ confirm: "Are you sure?", disable_with: "Approving..." }  %>
+  <% end %>
+  <% if notification.may_reject? %>
+    <%= link_to 'Reject', reject_requested_notification_path(notification), 
+        remote: true, method: :post, class: 'btn btn-danger btn-sm', 
+        data:{ confirm: "Are you sure?", disable_with: "Rejecting..." } %>
+  <% end %>
+  <% if notification.may_deliver? %>
+    <%= link_to 'Deliver', deliver_requested_notification_path(notification), 
+        remote: true, method: :post, class: 'btn btn-default btn-sm',
+        data:{ confirm: "Are you sure?", disable_with: "Delivering..." } %>
+  <% end %>
+</td>
+<% end %>

@@ -1,0 +1,4 @@
+$("tbody.tbody-list").html("<%= escape_javascript(render(partial: 'list', locals: {outlets: @outlets})) %>");
+if(<%= !@sucess %>){
+  alert('Outlet status not changed.');
+};

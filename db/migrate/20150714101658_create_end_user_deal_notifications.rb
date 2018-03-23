@@ -1,0 +1,12 @@
+class CreateEndUserDealNotifications < ActiveRecord::Migration
+  def change
+    create_table :end_user_deal_notifications do |t|
+      t.integer :end_user_id
+      t.integer :deal_id
+      t.boolean :aday, default: true
+      t.integer :count, default: 0
+
+      t.timestamps null: false
+    end
+  end
+end

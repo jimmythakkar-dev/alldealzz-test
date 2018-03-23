@@ -1,0 +1,49 @@
+<div class="row title_header">
+  <div class="col-md-8">
+  	<%= title_header(@cashback, "Cashbacks") %>
+  </div>
+  <div class="col-md-3 actions">
+    <%= link_to 'New Cashback', new_cashback_path, class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= cashback_breadcrumb_list(nil, 'Cashbacks') %>
+</ol>
+
+<div class="search">
+  <%= render 'cashbacks/listing/search', ashbacks: @cashbacks %>
+</div>
+
+<div class="cashbacks_list">
+  <%= render 'cashbacks/listing/list', cashbacks: @cashbacks %>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    input_button_on_off_change($('input.button-on-off'), 'change_status');
+    });
+
+    function input_button_on_off_change(element, method) {
+    element.bootstrapToggle();
+    element.change(function(){
+      $.ajax({
+        type: "POST",
+        url: "/cashbacks/"+$(this).val()+"/"+method,
+        data: { page: <%= params[:page] || 1 %> }
+      });
+    });
+    $('input#search_text').keyup(function(e) {
+      if(e.keyCode == 13) { search_request(); }
+    });
+
+  function search_request() {
+    $.ajax({
+      type: "GET",
+      dataType: "script",
+      url: "cashbacks",
+      data: { search:  { text: $('input#search_text').val() } }
+    });
+  }
+  }
+</script>

@@ -1,0 +1,49 @@
+<div class="form-group">
+  <label class="col-sm-4 control-label">Target deal category</label>
+  <div class="col-sm-8">
+    <%= select_tag 'requested_notification[target_deal_category_id]', options_for_select(DealCategory.deal_root_categories.all.map { |i| [i.name, i.id]}, @deal.try(:root_deal_category_id)), prompt: 'Please select', class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-4 control-label">Target Age Limit ?</label>
+  <div class="col-sm-8">
+    <%= check_box_tag 'requested_notification[target_is_age_limit]', 1, deal.try(:is_age_limit) %>
+  </div>  
+</div>
+<div class="form-group">
+  <label class="col-sm-4 control-label">Target age from</label>
+  <div class="col-sm-4">
+    <%= number_field_tag 'requested_notification[target_age_from]',
+          deal.try(:age_from), class: "form-control" %>
+  </div>  
+</div>
+<div class="form-group">
+  <label class="col-sm-4 control-label">Target age to</label>
+  <div class="col-sm-4">
+    <%= number_field_tag 'requested_notification[target_age_to]', 
+          deal.try(:age_to), class: "form-control" %>
+  </div>  
+</div>
+<div class="form-group">
+  <label class="col-sm-4 control-label">Target gender</label>
+  <div class="col-sm-8">
+    <label class="checkbox-inline">
+      <%= radio_button_tag 'requested_notification[target_gender]', 0, deal.try(:gender) %> Male
+    </label>
+    <label class="checkbox-inline">
+      <%= radio_button_tag 'requested_notification[target_gender]', 1, deal.try(:gender) %> Female
+    </label>
+    <label class="checkbox-inline">
+      <%= radio_button_tag 'requested_notification[target_gender]', 2, deal.try(:gender) %> Both
+    </label>
+  </div>  
+</div>
+
+<div class="form-group">
+  <label class="col-sm-4 control-label">Notify Text</label>
+  <div class="col-md-6">
+    <%= text_area_tag 'requested_notification[message]', deal.try(:notification_text),class: "form-control", rows: 5 %>
+  </div>
+</div>
+

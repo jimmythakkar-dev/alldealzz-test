@@ -1,0 +1,25 @@
+<%- if !user_signed_in? %>
+  <%= default_logo_image %>
+<%- elsif current_user.admin? %>
+  <%= link_to(root_path, class: "navbar-brand") do %>
+    <strong><%= Settings.app_name %> Solutions</strong>
+  <% end %>
+<%- elsif current_user.store_admin? %>
+  <%- if current_user.store.logo.present? %>
+    <%= link_to(image_tag(current_user.store.logo.url, alt: current_user.store.name.capitalize), root_path, class: "navbar-brand brand-image") %>
+  <%- else %>
+    <%= link_to(current_user.store.name.capitalize, root_path, class: "navbar-brand") %>
+  <%- end %>
+<%- elsif current_user.mall_admin? %>
+  <%- if current_user.mall.logo.present? %>
+    <%= link_to(image_tag(current_user.mall.logo.url, alt: current_user.mall.name.capitalize), root_path, class: "navbar-brand brand-image") %>
+  <%- else %>
+    <%= link_to(current_user.mall.name.capitalize, root_path, class: "navbar-brand") %>
+  <%- end %>
+<%- end %>
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+  <span class="sr-only">Toggle navigation</span>
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+  <span class="icon-bar"></span>
+</button>

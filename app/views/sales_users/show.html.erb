@@ -1,0 +1,71 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@sales_user, "Sales User") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= sales_user_breadcrumb_list(@sales_user, 'Information') %>
+</ol>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-11">
+        <h4>Store User :  <span class="label label-default"><%= @sales_user.identifier %></span></h4>
+      </div>  
+      <div class="col-md-1">
+        <%= link_to 'Edit', edit_sales_user_path(@sales_user), class: "btn btn-default" %>
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          <strong>User ID:</strong>
+          <%= @sales_user.identifier %>
+        </p>
+        <p>
+          <strong>Password:</strong>
+          <%= @sales_user.password %>
+        </p>
+
+        <p>
+          <strong>Name:</strong>
+          <%= @sales_user.name %>
+        </p>
+        <p>
+          <strong>Contact Phone:</strong>
+          <%= @sales_user.contact_phone %>
+        </p>
+        <p>
+          <strong>Status:</strong>
+          <%-if @sales_user.status %>
+            <span class="badge alert-success">On</span>
+          <%-else %>
+            <span class="badge alert-danger">Off</span>
+          <%-end %>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Store Name</th>
+          <th>Email</th>
+          <th>Contact</br>Phone</th>
+          <th>Latitude /</br>Longitude</th>
+          <th>Created at /</br>Updated at</th>
+          <th>Status to create</br>Live store</th>
+          <th class="col-md-3 action">Action</th>
+        </tr>
+      </thead>
+
+      <tbody class="tbody-list">
+        <%= render 'store_list', stores: @sales_user.sales_user_stores %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<td><%= user.identifier %></td>
+<td><%= user.password %></td>
+<td><%= user.name %></td>
+<td><%= user.contact_phone %></td>
+<td><%= get_user_downloads(user.name) %></td>
+<td class="action">
+  <%-if user.status? %>
+    <span class="badge alert-success">Yes</span>
+  <%-else %>
+    <span class="badge alert-danger">No</span>
+  <%-end %>
+</td>  
+<td class="action"><input type="checkbox" class="button-on-off" data-toggle="toggle" value="<%= user.id %>" data-size="small" <%= 'checked' if user.status %> ></td>
+<td class="action">
+  <%= link_to 'Show', user, class: 'btn btn-primary btn-sm' %>
+  <%= link_to 'Edit', [:edit, user], class: 'btn btn-primary btn-sm' %>
+</td>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("tr.row_sales_user_"+<%= user.id %>).find('input.button-on-off').bootstrapToggle();
+    $("tr.row_sales_user_"+<%= user.id %>).find('input.button-on-off').on('change', function(){
+      $.ajax({
+        type: "POST",
+        url: "/sales_users/"+$(this).val()+"/change_status"
+      });
+    });
+  });
+</script>

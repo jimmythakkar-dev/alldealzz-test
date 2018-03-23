@@ -1,0 +1,4 @@
+$("tr.row_sales_user_"+<%= @sales_user.id %>).html("<%= escape_javascript(render(partial: 'row', locals: {user: @sales_user})) %>");
+if(<%= !@sucess %>){
+  alert('Sales user status not changed.');
+};

@@ -1,0 +1,4 @@
+$("tr.row_merchant_user_"+<%= @merchant_user.id %>).html("<%= escape_javascript(render(partial: 'merchant_users/listing/row', locals: {user: @merchant_user})) %>");
+if(<%= !@sucess %>){
+  alert('Merchant user status not changed.');
+};

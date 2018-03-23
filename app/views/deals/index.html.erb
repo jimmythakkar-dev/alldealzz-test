@@ -1,0 +1,54 @@
+<div class="row title_header">
+  <% if @store.present? %>
+    <div class="col-md-8"><%= title_header(@store, "Deals") %></div>
+    <div class="col-md-3 actions">
+      <%= link_to 'New Deal', new_store_deal_path(@store), class: "btn btn-default btn-lg btn-block" %>
+    </div>
+  <% end %>  
+</div>
+
+<ol class="breadcrumb">
+  <%= deal_breadcrumb_list(nil, 'Deals') %>
+</ol>
+
+<div class="search">
+  <%= render 'deals/listing/search' %>
+</div>
+  
+<div class="deals_list">
+  <%= render 'deals/listing/list', deals: @deals %>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    input_button_on_off_change($('input.button-on-off'), 'change_status');
+    input_button_on_off_change($('input.button-approved-unapproved'), 'change_approver');
+    
+    $('select#search_selected').on('change', function(e) {
+      search_request();
+    });
+    $('input#search_text').keyup(function(e) {
+      if(e.keyCode == 13) { search_request(); }
+    });
+  });
+
+  function search_request() {
+    $.ajax({
+      type: "GET",
+      dataType: "script",
+      url: "deals",
+      data: { search:  { text: $('input#search_text').val(), selected: $('select#search_selected').val() } }
+    });
+  }
+
+  function input_button_on_off_change(element, method) {
+    element.bootstrapToggle();
+    element.change(function(){
+      $.ajax({
+        type: "POST",
+        url: "/stores/"+$(this).data('store-id')+"/deals/"+$(this).val()+"/"+method,
+        data: { page: <%= params[:page] || 1 %> }
+      });
+    });
+  }
+</script>

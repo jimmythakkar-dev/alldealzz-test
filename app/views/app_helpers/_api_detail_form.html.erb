@@ -1,0 +1,52 @@
+<% unless @api_detail.new_record? %>
+  <%= form_for(@api_detail, url: app_helpers_api_details_update_path(@api_detail), method: :post, 
+        remote: true, html: {class: "form-horizontal"}) do |f| %>
+    <%= render "shared/error_messages", target: @api_detail %> 
+  
+    <div class="form-group">
+      <%= f.label :app_version, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.text_field :app_version, class: "form-control" %>
+      </div>  
+    </div>
+    <%= f.hidden_field :device_type, :value => 0 ,class: "form-control" %>
+    <div class="form-group">
+      <%= f.label :message, class: "col-sm-2 control-label" %>
+      <div class="col-sm-10">
+        <%= f.text_area :message, class: "form-control editor" %>
+      </div>  
+    </div>
+
+    <div class="form-group">
+      <%= f.label :app_type, class: "col-sm-2 control-label" %>
+
+      <div class="col-sm-10">
+        <%= f.select :app_type, [1, 2], include_blank: "Select", class: "form-control" %>
+        <i>(1 : Normal Update, 2 :Forcefully Update)</i>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= f.submit 'Submit', class: "btn btn-default" %>
+      </div>
+    </div>
+  <% end %>
+  <div class="row title_header">
+    <div class="col-md-12">
+      <hr></hr>
+      <div id="result_admin_helpers">
+        <%= render 'result', data: @result %>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <span class="badge alert-danger">Api detail is not found. Select Api version / Device type</span>  
+<% end %> 
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('.form-control.editor').each(function(i, elem) {
+      $(elem).wysihtml5();
+    });
+  });
+</script>

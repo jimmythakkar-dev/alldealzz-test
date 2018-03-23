@@ -1,0 +1,9 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Quota") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= store_breadcrumb_list(@store, "#{@store.name.capitalize}'s Quota") %>
+</ol>
+
+<%= render 'form' %>

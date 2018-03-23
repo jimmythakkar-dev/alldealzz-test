@@ -1,0 +1,60 @@
+<div class="row">
+  <div class="col-lg-6">
+    <%= paginate merchant_users, :params => { controller: :merchant_users, action: :index }, remote: true %>
+  </div>
+  <div class="col-lg-3"></div>
+  <div class="col-lg-3">
+    <%= search_field_tag :search, params[:search], placeholder: 'Enter your search Name/Email/Phone', class: "form-control", width: '200px' %>
+    <!-- <span class="input-group-btn">
+      <button class="btn btn-default" type="button">Go!</button>
+    </span> -->
+  </div>
+</div>
+<div class="table-responsive">
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Merchant</th>
+        <th class="action">Deals<br/>Unapproved</th>
+        <th class="action">Notification<br/>pending/approved/rejected/delivered</th>
+        <th class="action">LMD live without approval</th>
+        <th class="action">Status</th>
+        <th class="col-md-2 action">Action</th>
+      </tr>
+    </thead>
+
+    <tbody class="tbody-list">
+      <% merchant_users.each do |user| %>
+			  <tr class="row_merchant_user_<%= user.id %>">
+			    <%= render 'merchant_users/listing/row', user: user %>
+			  </tr>
+			<% end %>
+    </tbody>
+  </table>
+  <% unless merchant_users.present? %>
+    <span class="badge alert-danger">Results not found</span>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= paginate merchant_users, :params => { controller: :merchant_users, action: :index }, remote: true %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('input#search').keyup(function(e) {
+      if(e.keyCode == 13) {
+        $.ajax({
+          type: "GET",
+          dataType: "script",
+          url: "merchant_users",
+          data: { search:  $(this).val() }
+        });
+      }
+    });
+  });
+</script>

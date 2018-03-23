@@ -1,0 +1,19 @@
+<td><%= cashback.cashback_type_to_s.try(:humanize) %></td>
+<td><%= cashback.text %></td>
+<td><%= cashback.discount %></td>
+<td><%= cashback.code %></td>
+<td><%= cashback.points.round(2) %></td>
+<td class="action">
+	<%-if cashback.allowed? %>
+	<span class="badge alert-success">Yes</span>
+	<%-else %>
+		<%= update_status(cashback) if cashback.status == true %>
+	<span class="badge alert-danger">No</span>
+	<%-end %>
+</td> 
+<td class="action"><input type="checkbox" class="button-on-off" data-toggle="toggle" value="<%= cashback.id %>" data-size="small" <%= 'checked' if cashback.status %> ></td>
+<td class='action'>
+	<%= link_to 'Show', [cashback], class: 'btn btn-primary btn-sm' %>
+	<%= link_to 'Edit', edit_cashback_path(cashback), class: 'btn btn-primary btn-sm' %>
+	<%#= link_to 'Add category', categories_store_deal_path(cashback.store, cashback), class: 'btn btn-primary btn-sm' %>
+</td>

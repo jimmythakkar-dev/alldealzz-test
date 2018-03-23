@@ -1,0 +1,1 @@
+$(".row_transaction_detail<%= @transaction_detail.id %>").html("<%= escape_javascript(render(partial: 'transaction_details/listing/row', locals: {transaction_detail: @transaction_detail})) %>");

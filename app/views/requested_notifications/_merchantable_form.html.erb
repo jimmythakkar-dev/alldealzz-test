@@ -1,0 +1,40 @@
+<div class="form-group">
+  <label class="col-sm-4 control-label">Target City</label>
+  <div class="col-sm-8">
+    <%= select_tag 'requested_notification[city_id]', options_for_select(City.all.map { |i| [i.name, i.id]}, @merchantable.current_city.try(:id)), prompt: 'Please select', class: "form-control" %>
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-sm-4 control-label">Target to</label>
+  <div class="col-sm-8">
+    <label class="checkbox-inline">
+      <%= radio_button :requested_notification, :target_to, :all, checked: true %> All
+    </label>
+    <label class="checkbox-inline">
+      <%= radio_button :requested_notification, :target_to, :followers %> Followers
+    </label>
+  </div>  
+</div>
+
+<%- if @deals.present? %>
+  <div class="form-group">
+    <label class="col-sm-4 control-label">Deal</label>
+    <div class="col-sm-8">
+      <%= select("requested_notification", "deal_id", @deals.collect {|p| [ p.main_line, p.id ] }, { include_blank: "Please select"}, {class: "form-control"}) %>
+    </div>  
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#requested_notification_deal_id').on('change', function(e) {
+        $.ajax({
+          type: "POST",
+          dataType: "script",
+          url: "/requested_notifications/dealable_form",
+          data: { deal_id:  $(this).val() }
+        });
+    });
+  });
+</script>

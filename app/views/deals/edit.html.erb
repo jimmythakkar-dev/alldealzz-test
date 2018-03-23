@@ -1,0 +1,11 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Edit Deal") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= deal_breadcrumb_list(@deal, 'Edit Deal') %>
+</ol>
+
+<div class="row last_minute_deal_input">
+  <%= render 'form' %>
+</div>

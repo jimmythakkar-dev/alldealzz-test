@@ -1,0 +1,35 @@
+<% malls.each do |mall| %>
+  <tr class=<%#= 'danger' unless mall.status %>>
+    <td><%= truncate(mall.name, length: 10) %></td>
+    <td><%= mall.user.email %></td>
+    <td><%= mall.phone %></td>
+    <td><%= mall.contact_phone %></td>
+    <td><%= truncate(mall.contact_persone, length: 10) %></td>
+    <td class="action"><%= mall.package_days %></td>
+    <!-- <td class="action"><%#= mall.store_category.try(:name) %></td> -->
+    <td class="action">
+      <%-if mall.allowed? %>
+        <span class="badge alert-success">Yes</span>
+      <%-else %>
+        <span class="badge alert-danger">No</span>
+      <%-end %>
+    </td>  
+    <td class="action"><input type="checkbox" class="button-on-off" data-toggle="toggle" value="<%= mall.id %>" data-size="small" <%= 'checked' if mall.status %> ></td>
+    <td class="action">
+      <%= link_to 'Show', mall_dashboard_path(mall), class: 'btn btn-primary btn-sm' %>
+      <%= link_to 'Edit', edit_mall_path(mall), class: 'btn btn-primary btn-sm' %>
+    </td>
+  </tr>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('input.button-on-off').bootstrapToggle();
+    $('input.button-on-off').change(function(){
+      $.ajax({
+        type: "POST",
+        url: "/malls/"+$(this).val()+"/change_status"
+      });
+    });
+  });
+</script>

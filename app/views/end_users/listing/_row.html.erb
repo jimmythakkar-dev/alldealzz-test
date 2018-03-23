@@ -1,0 +1,15 @@
+<% @end_users.each do |end_user| %>
+<tr>
+	<td><%= end_user.name %></td>
+	<td><%= end_user.phone_number %></td>
+	<td><%= end_user.email %></td>
+	<td><%= end_user.age %></td>
+	<td><%= end_user.gender %></td>
+	<td><%= end_user.end_user_reward_point.present? ? end_user.end_user_reward_point.points.round(2) : 0 %>
+	<td><%= end_user.otp_verified? ? 'Yes' : 'No' %></td>
+	<td class='action'>
+		<%= link_to 'Show', end_user_path(end_user), class: 'btn btn-primary btn-sm' %>
+		<%= link_to 'Add points', points_end_user_path(end_user), class: 'btn btn-primary btn-sm' %>
+	</td>
+</tr>
+<% end -%>

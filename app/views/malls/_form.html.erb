@@ -1,0 +1,191 @@
+<div class="row">
+  <%= form_for(@mall, html: {class: "form-horizontal"}) do |f| %>
+    <%= render "shared/error_messages", target: @mall %> 
+    
+  	<%- if (f.object.new_record?) or (can? :manage, Mall) %>
+  	  <div class="row">
+	      <div class="col-md-6">
+	        <div class="form-group">
+	          <%= f.label :name, class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%= f.text_field :name, class: "form-control" %>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :phone, class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%= f.text_field :phone, class: "form-control" %>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :contact_persone, "Contact person",class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%= f.text_field :contact_persone, class: "form-control" %>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :contact_phone, class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%= f.text_field :contact_phone, class: "form-control" %>
+	          </div>
+	        </div>
+	        <%- if user_signed_in? && current_user.super_admin? %>
+		        <div class="form-group">
+		          <%= f.label :status, class: "col-sm-3 control-label" %>
+		            <div class="col-sm-8">
+		              <%= f.check_box :status, data: {size: "small", toggle: "toggle"} %>
+		          </div>
+		        </div>
+		      <% end -%>  
+	        <div class="form-group">
+	          <%= f.label :duration, class: "col-sm-3 control-label" %>
+	          <div class="input-group padding-15 col-sm-4">
+	            <%= f.text_field :duration, class: "form-control" %>
+	            <span class="input-group-addon" id="basic-addon2">Days</span>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :logo, class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%- if f.object.logo.url.present? %>
+	              <img src='<%= f.object.logo.url %>' width='100' height='100'>
+	            <% end -%>  
+	            <%= f.file_field :logo %>
+	          </div>  
+	        </div>
+	      </div>
+
+	      <div class="col-md-6">
+            <div class="form-group">
+              <%= f.label :city, class: "col-sm-3 control-label" %>
+              <div class="col-sm-8">
+                <%= f.select :city_id, City.all.map { |i| [i.name, i.id]}, {include_blank: 'Please select'}, {class: "form-control"} %>
+              </div>
+            </div>
+	        <div class="form-group">
+	          <%= f.label :address, class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%= f.text_field :address, class: "form-control" %>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :location, class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%= f.text_field :location, class: "form-control gmaps-input-address", id: "input_autocomplete", :placeholder => 'Start typing a place...' %>
+	          </div>
+	        </div>
+	        <% f.object.geo_coordinate ||= GeoCoordinate.new %>
+	        <%= f.fields_for :geo_coordinate  do |geo_coordinate| %>
+		        <div class="form-group">
+		          <%= f.label :latitude, class: "col-sm-3 control-label" %>
+		          <div class="col-sm-8">
+		            <%= geo_coordinate.text_field :latitude, class: "form-control gmaps-input-latitude", :placeholder => 'Latitude...' %>
+		          </div>
+		        </div>
+		        <div class="form-group">
+		          <%= f.label :longitude, class: "col-sm-3 control-label" %>
+		          <div class="col-sm-8">
+		            <%= geo_coordinate.text_field :longitude, class: "form-control gmaps-input-longitude", :placeholder => 'Longitude...' %>
+		          </div>
+		        </div>
+          <% end %>
+	        <div class="form-group">
+	          <div class='form-input' id='gmaps-input-canvas'></div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :radius, class: "col-sm-3 control-label" %>
+	          <div class="input-group padding-15 col-sm-4">
+	            <%= f.text_field :radius, class: "form-control", size: 10 %>
+	            <span class="input-group-addon" id="basic-addon2">Kms</span>
+	          </div>
+	        </div>
+	      </div>  
+	    </div>
+
+	    <div class="row">
+	      <div class="col-md-6">
+	        <%- if @mall.new_record? %>
+	          <%= f.fields_for :user_attributes, f.object.user do |ff| %>
+	            <div class="form-group">
+	              <%= ff.label :username, class: "col-sm-3 control-label" %>
+	              <div class="col-sm-8">
+	                <%= ff.text_field :username, class: "form-control" %>
+	              </div>
+	            </div>
+	            <div class="form-group">
+	              <%= ff.label :email, class: "col-sm-3 control-label" %>
+	              <div class="col-sm-8">
+	                <%= ff.text_field :email, class: "form-control" %>
+	              </div>
+	            </div>
+	            <div class="form-group">
+	              <%= ff.label :password, class: "col-sm-3 control-label" %>
+	              <div class="col-sm-8">
+	                <%= ff.password_field :password, class: "form-control" %>
+	              </div>
+	            </div>
+	            <div class="form-group">
+	              <%= ff.label :password_confirmation, class: "col-sm-3 control-label" %>
+	              <div class="col-sm-8">
+	                <%= ff.password_field :password_confirmation, class: "form-control" %>
+	              </div>
+	            </div>
+	          <% end -%>
+	        <%- else %>
+	          
+	          <%= f.fields_for :user_attributes, f.object.user do |ff| %>
+	            <div class="form-group">
+	              <%= ff.label :email, class: "col-sm-3 control-label" %>
+	              <div class="col-sm-8">
+	                <%= ff.text_field :email, class: "form-control" %>
+	              </div>
+	            </div>
+	            <%= ff.hidden_field :id %>
+	          <% end -%>   
+	        <% end -%> 
+	      </div>
+	    </div>
+    <%- else %>
+      <div class="row">
+	      <div class="col-md-6">
+	        <div class="form-group">
+	          <%= f.label :contact_persone, class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%= f.text_field :contact_persone, class: "form-control" %>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :contact_phone, class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%= f.text_field :contact_phone, class: "form-control" %>
+	          </div>
+	        </div>
+	        <div class="form-group">
+	          <%= f.label :logo, class: "col-sm-3 control-label" %>
+	          <div class="col-sm-8">
+	            <%- if f.object.logo.url.present? %>
+	              <img src='<%= f.object.logo.url %>' width='100' height='100'>
+	            <% end -%>  
+	            <%= f.file_field :logo %>
+	          </div>  
+	        </div>
+	      </div>
+    <%- end %>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <%= f.submit 'Submit', class: "btn btn-default" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    lat = $('.form-control.gmaps-input-latitude').val() || 0;
+    lng = $('.form-control.gmaps-input-longitude').val() || 0;
+    map_elem = "#gmaps-input-canvas";
+
+    formGmapsCompleter(lat, lng, map_elem);
+  });
+</script>

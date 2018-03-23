@@ -1,0 +1,11 @@
+<div class="row title_header">
+  <div class="col-md-8">
+  	<%= title_header(@sales_user, "Edit Sales Store") %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+<%= sales_user_store_breadcrumb_list(@sales_user_store, 'Edit') %>
+</ol>
+
+<%= render 'form' %>

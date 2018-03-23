@@ -1,0 +1,102 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Premium Notification") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= pn_breadcrumb_list(@premium_notification, 
+      'Premium Notification Information') %>
+</ol>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-11">
+        <h4>Premium Notification :  <span class="label label-default"><%= @premium_notification.notification_text %></span></h4>
+      </div>  
+      <div class="col-md-1">
+        <%= link_to 'Edit', edit_store_premium_notification_path(@store, @premium_notification), class: "btn btn-default" %>
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          <strong>Category:</strong>
+          <%= @premium_notification.deal_category.try(:name) %>
+        </p>
+        <p>
+          <strong>Notification text:</strong>
+          <%= @premium_notification.notification_text %>
+        </p>
+        <p>
+          <strong>Status:</strong>
+          <%-if @premium_notification.status %>
+            <span class="badge alert-success">On</span>
+          <%-else %>
+            <span class="badge alert-danger">Off</span>
+          <%-end %>
+        </p>
+      </div>  
+      <div class="col-md-6">
+        <p>
+          <strong>Publish immediately:</strong>
+          <%= @premium_notification.publish %>
+        </p>
+        <p>
+          <strong>Publish date:</strong>
+          <%= @premium_notification.publish_date.strftime("%Y-%m-%d %H:%M") %>
+        </p>
+        <p>
+          <strong>Duration:</strong>
+          <%= pluralize(@premium_notification.duration, 'Day') %>
+        </p>
+      </div>
+    </div>
+    
+    <hr></hr>
+
+    <div class="row">  
+      <div class="col-md-6">
+        <p>
+          <strong>Radius:</strong>
+          <%= @premium_notification.radius %> Kms
+        </p>
+        <p>
+          <strong>Location:</strong>
+          <div class="gmaps-group">
+            <p class='gmaps-show' id='gmaps-show-canvas'></p> 
+          </div>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <p>
+          <strong>Notification time from:</strong>
+          <%= @premium_notification.notification_time_from.strftime("%H:%M") %>
+        </p>
+        <p>
+          <strong>Notification time to:</strong>
+          <%= @premium_notification.notification_time_to.strftime("%H:%M") %>
+        </p>
+        <p>
+          <strong>Days:</strong>
+          <%= @premium_notification.days_text %>
+        </p>
+      </div>
+    </div> 
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-1">
+    
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function () {
+    lat = <%= @premium_notification.latitude %>;
+    lng = <%= @premium_notification.longitude %>;
+    map_elem = '#gmaps-show-canvas';
+    showGmapsCompleter(lat, lng, map_elem);
+  });
+</script>

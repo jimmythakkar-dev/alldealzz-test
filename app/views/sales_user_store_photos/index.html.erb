@@ -1,0 +1,25 @@
+<div class="row title_header">
+  <div class="col-md-8">
+    <%= title_header(nil, "Sales User Store Photos") %>
+  </div>
+  <div class="col-md-3 actions">
+    <%= link_to 'New Sales User', new_sales_user_path, class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= sales_user_store_breadcrumb_list(@sales_user_store, 'Sales User Store Photos') %>
+</ol>
+
+<div class="row">
+  <ul>
+    <% @sales_user_store_photos.each do |sales_user_store_photo| %>
+      <div class="col-md-2">
+        <%- if sales_user_store_photo.photo.url.present? %>
+          <img src='<%= sales_user_store_photo.photo.url %>' width='100' height='100'>
+          <%= link_to 'Download', sales_user_store_photo.photo.url, target: "_blank" if  sales_user_store_photo.photo.present? %>
+        <% end -%>
+      </div>
+    <% end %>
+  </ul>
+</div>

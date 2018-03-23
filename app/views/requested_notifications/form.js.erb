@@ -1,0 +1,4 @@
+$(".requested_notifications_form").html("<%= escape_javascript(render(partial: 'requested_notifications/form', locals: {requested_notification: @requested_notification})) %>");
+$("p.send_notification").html("<%= @msg %>");
+$("p.send_notification").addClass("<%= @sucess ? 'text-success' : 'text-danger' %>");
+$("p.send_notification").removeClass("<%= @sucess ? 'text-danger' : 'text-success' %>");

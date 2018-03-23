@@ -1,0 +1,12 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "New Store Category") %></div>
+</div>
+
+
+<ol class="breadcrumb">
+  <%= li_link_to 'Home', root_path %>
+  <%= li_link_to 'Store Categories', store_categories_path %>
+  <%= li_link_to 'New Store Category', nil, class: "active" %>
+</ol>
+
+<%= render 'form' %>

@@ -1,0 +1,1 @@
+json.extract! @premium_notification, :id, :notification_text, :radius, :latitude, :longitude, :publish, :publish_date, :duration, :notification_time_from, :notification_time_to, :days, :created_at, :updated_at

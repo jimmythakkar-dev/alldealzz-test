@@ -1,0 +1,39 @@
+app_name: Test
+
+main_uri: https://alldealzz.herokuapp.com
+
+email:
+  username: deals@alldealzz.in
+  password: deal2016!
+
+mail:
+  contact_us: info@alldealzz.com
+  bookings: bookings@alldealzz.com
+
+doorkeeper_api: 
+  name: alldealzz-api
+  redirect_uri: https://alldealzz.herokuapp.com
+  client_id: 182ee09c84c071e8512da99279dfba7b5861b0b8ee40e7b996183694165cce66
+  client_secret: 72287860b769e141dff7a1103692c10db836500542a8b91a66d7f5a92f00c6dc
+
+push_notification:
+  apple:
+    end_user_app:
+      apns_dev_cert: config/certificates/end_user_app/com.aor.fandy.dev.pem
+      apns_prod_cert: config/certificates/end_user_app/com.aor.fandy.prod.pem
+    merchant_app:
+      apns_dev_cert: config/certificates/merchant_app/com.aor.fandy.dev.pem
+      apns_prod_cert: config/certificates/merchant_app/com.aor.fandy.prod.pem
+    passphrase: '123456'
+
+  google:
+    end_user_app:
+      gcm_key: AIzaSyDanP73hJT2HfrLt14vxkbw-O03AiWgbQA
+    merchant_app:  
+      gcm_key: AIzaSyAAkarDLwtbO7CJFqtzznOa0nIZBB8_xIw
+
+google_api_key: AIzaSyDt3pbFrntK8nkHbuMnQkJyMAmSaVBtwRM
+
+api:
+  v1:
+    share_url: http://alldealzz.com

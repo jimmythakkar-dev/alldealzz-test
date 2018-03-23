@@ -1,0 +1,151 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    view_cashback_input();
+    function view_cashback_input() {
+      if('<%= @cashback.is_cashback_deal? %>' == "true") {
+        $('.cashback_is_true').show(); $('.cashback_is_false').hide();
+      } else if ('<%= @cashback.is_cashback_store? %>' == "true")  {
+        $('.cashback_is_true').show(); $('.cashback_is_false').hide();
+      } else {
+        $('.cashback_is_true').hide(); $('.cashback_is_false').show();
+      }
+    }
+  });
+</script>
+
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@cashback, "Cashback") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= cashback_breadcrumb_list(@cashback, 'Cashback Information') %>
+</ol>
+<div class="panel panel-default">
+  <div class="panel-body">
+   <div class="row">
+    <div class="col-md-11">
+      <h4>Cashback :  <span class="label label-default"><%= @cashback.text.capitalize %></span></h4>
+    </div>  
+    <div class="col-md-1">
+      <%= link_to 'Edit', edit_cashback_path(@cashback), class: "btn btn-default" %>
+    </div>
+  </div>
+
+</div>
+<div class="panel-footer">
+  <div class="row">
+    <div class="col-md-6">
+      <p>
+        <strong>Cashback Type:</strong>
+        <%= @cashback.cashback_type_to_s.try(:humanize) %>
+      </p>
+      <div class="col-md-12 cashback_is_true">
+        <p>
+        <strong>Store:</strong>
+        <%- if @cashback.store  %>
+          <%= link_to @cashback.store.name, [@cashback.store] %></td>
+          <%- end %>
+        </p>
+        <p>
+          <strong>Deal:</strong>
+          <%- if @cashback.deal  %>
+          <%= link_to @cashback.deal.main_line, [@cashback.deal.store, @cashback.deal] %></td>
+          <%- end %>
+        </p>
+      </div>
+      <div id="cashback_category">
+        <%- if @cashback.deal_category  %>
+        <p>
+          <strong>Deal Category:</strong>
+          <%= @cashback.deal_category.name %></td>
+        </p>
+        <%- end %>
+      </div>
+      <p>
+        <strong>Description:</strong>
+        <%= @cashback.text %>
+      </p>
+      <p>
+        <strong>Discount (%):</strong>
+        <%= @cashback.discount %>
+      </p>
+      <p>
+        <strong>Code:</strong>
+        <%= @cashback.code %>
+      </p>
+      <p>
+        <strong>Points:</strong>
+        <%= @cashback.points %>
+      </p>
+      
+      <p>
+        <strong>Status:</strong>
+        <%-if @cashback.status %>
+        <span class="badge alert-success">On</span>
+        <%-else %>
+        <span class="badge alert-danger">Off</span>
+        <%-end %>
+      </p>
+    </div>
+    <div class="col-md-6">
+      <p>
+        <strong>Max Time Useable Per User:</strong>
+        <%= @cashback.max_time_useable %>
+      </p>
+      <p>
+        <strong>Total Coupons:</strong>
+        <%= @cashback.total_coupons %>
+      </p>
+      <p>
+        <strong>Used Coupons:</strong>
+        <%- if @cashback.used_coupons.present? %>
+        <%= @cashback.used_coupons %>
+        <% end -%>
+      </p>
+      <p>
+        <strong>Terms & Conditions:</strong>
+        <%= @cashback.termsandconditions %>
+      </p>
+      <p>
+        <strong>Is Cashback Trending:</strong>
+        <%= @cashback.is_trending? %>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <hr></hr>  
+    <div class="col-md-6">
+      <p>
+        <strong>Image:</strong>
+        <%- if @cashback.image.present? %>
+        <img src='<%= @cashback.image.url %>' width='100' height='100'>
+        <% end -%>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <hr></hr>  
+    <div class="col-md-6">
+      <p>
+        <strong>Publish date:</strong>
+        <%= @cashback.publish_date.strftime("%Y-%m-%d %H:%M") %>
+      </p>
+      <p>
+        <strong>Expiry date:</strong>
+        <%= @cashback.expiry_date.strftime("%Y-%m-%d %H:%M") %>
+      </p>
+      <!-- <p>
+        <strong>Duration:</strong>
+        <%#= pluralize(@cashback.duration, 'Day') %>
+      </p> -->
+      <p>
+        <strong>Remaining days:</strong>
+        <%- if @cashback.package_days.present? %>
+        <%= @cashback.package_days %> Days
+        <% end -%>
+      </p>
+    </div>
+  </div>
+</div>
+</div>

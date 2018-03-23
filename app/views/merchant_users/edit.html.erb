@@ -1,0 +1,11 @@
+<div class="row title_header">
+  <div class="col-md-8">
+  	<%= title_header(@merchant_user, "Edit merchant user") %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= merchant_user_breadcrumb_list(@merchant_user, 'Edit') %>
+</ol>
+
+<%= render 'form' %>

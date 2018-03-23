@@ -1,0 +1,77 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@merchant_user, "Merchant User") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= merchant_user_breadcrumb_list(@merchant_user, 'Information') %>
+</ol>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-9">
+        <h4>Merchant User :  <span class="label label-default"><%= @merchant_user.identifier %></span></h4>
+      </div>  
+      <div class="col-md-3">
+        <%= link_to 'Edit', edit_merchant_user_path(@merchant_user), class: "btn btn-default" %>
+        <%= link_to 'Requested Notifications', merchant_user_requested_notifications_path(@merchant_user),
+        class: 'btn btn-primary btn-md' %>
+
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          <strong>User ID:</strong>
+          <%= @merchant_user.identifier %>
+        </p>
+        <p>
+          <strong>Password:</strong>
+          <%= @merchant_user.password %>
+        </p>
+        <p>
+          <strong>Status:</strong>
+          <%-if @merchant_user.status %>
+            <span class="badge alert-success">On</span>
+          <%-else %>
+            <span class="badge alert-danger">Off</span>
+          <%-end %>
+        </p>
+        <p>
+          <strong>LMD live without approval:</strong>
+          <%-if @merchant_user.is_lmd_live_without_approval? %>
+            <span class="badge alert-success">On</span>
+          <%-else %>
+            <span class="badge alert-danger">Off</span>
+          <%-end %>
+        </p>
+        <p>
+          <strong>Has booking codes:</strong>
+          <%-if @merchant_user.has_booking_codes? %>
+            <span class="badge alert-success">Yes</span>
+          <%-else %>
+            <span class="badge alert-danger">No</span>
+          <%-end %>
+        </p>
+        
+      </div>
+      <div class="col-md-6">
+        <p>
+          <strong>Name:</strong>
+          <%= @merchant_user.name %>
+        </p>
+        <p>
+          <strong>Merchant</strong>
+          <%= merchantable_link_to @merchant_user %>
+        </p>
+        
+      </div>
+    </div>
+    <hr></hr>
+    <div class="merchant_users_list">
+      <%= render 'merchant_users/listing/deal_list', deals: @deals, store: @store %>
+    </div>
+  </div>
+</div>

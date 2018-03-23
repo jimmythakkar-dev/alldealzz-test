@@ -1,0 +1,7 @@
+var element = $("tr.feed_listing_row_<%= @feed.id %>");
+element.html("<%= escape_javascript(render(partial: 'feeds/listing/row', locals: {feed: @feed})) %>");
+if(<%= !@sucess %>){
+  alert('Feed status not changed.');
+};
+
+input_button_on_off_change(element.find('input.button-on-off'), 'change_status');

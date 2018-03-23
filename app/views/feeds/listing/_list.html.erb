@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= paginate feeds, :params => { controller: :feeds, action: :index }, remote: true %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Deal</th>
+        <th>Title</th>
+        <th>Valid at</th>
+        <th>Deal type</th>
+        <th class="action">Remaining</br>Days</th>
+        <th>Allowed</th>
+        <th class="col-md-2 action">Status</th>
+        <th class="col-md-3 action">Action</th>
+      </tr>
+    </thead>
+    
+    <tbody class="tbody-list">
+      <% feeds.each do |feed| %>
+        <tr class="feed_listing_row_<%= feed.id %>">
+          <%= render 'feeds/listing/row', feed: feed %>
+        </tr>  
+      <% end %>
+    </tbody>
+  </table>
+  <% unless feeds.present? %>
+    <span class="badge alert-danger">Results not found</span>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= paginate feeds, :params => { controller: :feeds, action: :index }, remote: true %>
+  </div>
+</div>

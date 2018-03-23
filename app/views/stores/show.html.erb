@@ -1,0 +1,150 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Store") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= store_breadcrumb_list(@store, 'Store Information') %>
+</ol>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-11">
+        <h4>Store :  <span class="label label-default"><%= @store.name.capitalize %></span></h4>
+        <% if @store.sales_user.present? %>
+          <h6>Sales person :  <%= link_to @store.sales_user.try(:identifier), @store.sales_user %></h6>
+        <% end %>
+      </div>  
+      <div class="col-md-1">
+        <%= link_to 'Edit', edit_store_path(@store), class: "btn btn-default" %>
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          <strong>Email:</strong>
+          <%= @store.user.email %>
+        </p>
+        <p>
+          <strong>Username:</strong>
+          <%= @store.user.username %>
+        </p>
+
+        <p>
+          <strong>Phone:</strong>
+          <%= @store.phone %>
+        </p>
+        <p>
+          <strong>Contact Person:</strong>
+          <%= @store.contact_persone %>
+        </p>
+        <p>
+          <strong>Status:</strong>
+          <%-if @store.status %>
+            <span class="badge alert-success">On</span>
+          <%-else %>
+            <span class="badge alert-danger">Off</span>
+          <%-end %>
+        </p>
+        <!-- <p>
+          <strong>Remaining days:</strong>
+          <%#- if @store.package_days.present? %>
+            <%= @store.package_days %> Days
+          <%# end -%>
+        </p> -->
+        <p>
+          <strong>Address:</strong>
+          <%= @store.address %>
+        </p>
+        <p>
+          <strong>Contact (Store):</strong>
+          <%= @store.contact_phone %>
+        </p>
+        <p>
+          <strong>Start time:</strong>
+          <%= @store.start_time.strftime("%H:%M") rescue false %>
+        </p>
+        <p>
+          <strong>End time:</strong>
+          <%= @store.end_time.strftime("%H:%M") rescue false %>
+        </p>
+        <p>
+          <strong>LMD Commission(%):</strong>
+          <%= @store.lmd_commission_percent %>
+        </p>
+        <p>
+          <strong>Logo:</strong>
+          <%- if @store.logo.present? %>
+            <img src='<%= @store.logo.url %>' width='100' height='100'> 
+          <% end -%>
+        </p>
+        <p>
+            <strong>LMD Default Image:</strong>
+            <%- if @store.lmd_default_image.present? %>
+                <img src='<%= @store.lmd_default_image.url %>' width='100' height='100'>
+            <% end -%>
+        </p>
+        <p>
+          <strong>Followers: </strong>
+          <%= @store.end_user_follow_stores.try(:count) %>
+        </p>
+        <p>
+          <strong>Total Users Downloaded From Referral Code: </strong>
+          <%= @store.end_user_store_ref_codes.try(:count) %>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <p>
+          <strong>Store category:</strong>
+          <%= @store.store_category.try(:name) %>
+        </p>
+        <p>
+          <strong>City:</strong>
+          <%= @store.current_city.try(:name)%>
+        </p>
+        <p>
+          <strong>Store Locality:</strong>
+          <%= @store.locality %>
+        </p>        
+        <p>
+          <strong>Location:</strong>
+          <%= @store.location %>
+        </p>
+        <p>
+          <strong>Location:</strong>
+          <div class="gmaps-group">
+            <p class='gmaps-show' id='gmaps-show-canvas'></p> 
+          </div>
+        </p>
+        <p>
+          <strong>Radius:</strong>
+          <%= @store.radius %> Kms
+        </p>
+        <!--<p>-->
+          <!--<strong>Is Brand Store:</strong>-->
+          <%#= @store.is_brand_store %>
+        <!--</p>-->
+      </div>
+    </div>
+
+    
+    <div class="row">
+      <div class="col-md-6">
+        
+      </div>
+      <div class="col-md-6">
+        
+      </div>
+    </div> 
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function () {
+    lat = <%= @store.latitude %>;
+    lng = <%= @store.longitude %>;
+    map_elem = '#gmaps-show-canvas';
+    showGmapsCompleter(lat, lng, map_elem);
+  });
+</script>

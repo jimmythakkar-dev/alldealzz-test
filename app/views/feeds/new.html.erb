@@ -1,0 +1,11 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "New Feed") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= feed_breadcrumb_list(nil, 'New Feed', true) %>
+</ol>
+
+<div class="row">
+  <%= render 'form' %>
+</div>  

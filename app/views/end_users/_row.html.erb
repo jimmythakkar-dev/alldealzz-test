@@ -1,0 +1,8 @@
+<% @end_user.end_user_points_histories.order('created_at desc').each do |end_user_points_history| %>
+<tr>
+	<td><%= end_user_points_history.user.try(:username) %></td>
+	<td><%= end_user_points_history.end_user.name %></td>
+	<td><%= end_user_points_history.points.round(2)  %></td>
+	<td><%= end_user_points_history.created_at.strftime("%Y-%m-%d %H:%M")  %></td>
+</tr>
+<% end -%>

@@ -1,0 +1,40 @@
+I"™(function() {
+  var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  $(document).ready(function() {
+    var FandyGmapsCompleter, GmapCompleterAssist;
+    FandyGmapsCompleter = (function(superClass) {
+      extend(FandyGmapsCompleter, superClass);
+
+      function FandyGmapsCompleter(opts) {
+        var lat, lng;
+        FandyGmapsCompleter.__super__.constructor.call(this, opts);
+        lat = opts.pos[0];
+        lng = opts.pos[1];
+      }
+
+      return FandyGmapsCompleter;
+
+    })(GmapsCompleter);
+    GmapCompleterAssist = (function(superClass) {
+      extend(GmapCompleterAssist, superClass);
+
+      function GmapCompleterAssist() {
+        return GmapCompleterAssist.__super__.constructor.apply(this, arguments);
+      }
+
+      GmapCompleterAssist.prototype.positionOutputter = function(latLng) {
+        $('.form-control.gmaps-input-latitude').val(latLng.lat);
+        return $('.form-control.gmaps-input-longitude').val(latLng.lng);
+      };
+
+      return GmapCompleterAssist;
+
+    })(GmapsCompleterDefaultAssist);
+    window.FandyGmapsCompleter = FandyGmapsCompleter;
+    return window.GmapCompleterAssist = GmapCompleterAssist;
+  });
+
+}).call(this);
+:ET

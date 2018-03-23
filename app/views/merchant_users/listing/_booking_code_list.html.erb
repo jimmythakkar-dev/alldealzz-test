@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-lg-6">
+    <%= paginate booking_codes, :params => { controller: :merchant_users, action: :redeem }, remote: true %>
+  </div>
+  <div class="col-lg-3"></div>
+  <div class="col-lg-3">
+    <%= search_field_tag :search, params[:search], placeholder: 'Enter your search Code', class: "form-control", width: '200px' %>
+    <!-- <span class="input-group-btn">
+      <button class="btn btn-default" type="button">Go!</button>
+    </span> -->
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Booking code</th>
+        <th>Txn ID</th>
+        <th>User</th>
+        <th>Redeemed</br>date</th>
+        <th>Self Redeemed</th>
+        <th class="col-md-3 action">Action</th>
+      </tr>
+    </thead>
+
+    <tbody class="tbody-list">
+      <% booking_codes.each do |booking_code| %>
+        <tr class="row_booking_code_<%= booking_code.id %>">
+          <%= render 'merchant_users/listing/booking_code_row', booking_code: booking_code %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>    
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('input#search').keyup(function(e) {
+      if(e.keyCode == 13) {
+        $.ajax({
+          type: "GET",
+          dataType: "script",
+          url: "<%= redeem_merchant_user_path(@merchant_user) %>",
+          data: { search:  $(this).val() }
+        });
+      }
+    });
+  });
+</script>

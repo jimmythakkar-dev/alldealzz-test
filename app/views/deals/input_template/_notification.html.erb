@@ -1,0 +1,73 @@
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('#deal_days').click(function () {
+      if ($(this).is(':checked')) {
+        $('#deal_days_0, #deal_days_1, #deal_days_2, #deal_days_3, #deal_days_4, #deal_days_5, #deal_days_6').prop('checked', true);
+      } else {
+        $('#deal_days_0, #deal_days_1, #deal_days_2, #deal_days_3, #deal_days_4, #deal_days_5, #deal_days_6').prop('checked', false);
+      }
+    });
+    $('#deal_days_0, #deal_days_1, #deal_days_2, #deal_days_3, #deal_days_4, #deal_days_5, #deal_days_6').click(function () {
+      if ($(this).is(':checked')) {
+      } 
+      else {
+        $('#deal_days').prop('checked', false);
+      }
+    });
+  });
+
+</script>
+<div class="row">
+  <div class="col-md-6"> 
+    <div class="form-group">
+      <%= f.label :notification_text, class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+        <%= f.text_area :notification_text, class: "form-control" %>
+      </div>  
+    </div>
+
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <%= f.label :notification_time_from, class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+        <%= f.time_select :notification_time_from, class: "form-control" %>
+      </div>  
+    </div>
+    <div class="form-group">
+      <%= f.label :notification_time_to, class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+        <%= f.time_select :notification_time_to, class: "form-control" %>
+      </div>  
+    </div>
+    <div class="form-group days">
+      <%= f.label :days, "Location based Days", class: "col-sm-3 control-label" %>
+      <div class="col-sm-8">
+      <div class="days-block">
+          <label>All</label><%= check_box :deal, :days, {multiple: true }, nil, nil %>
+        </div>
+        <div class="days-block">
+          <label>Sun </label><%= check_box :deal, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('0')}, 0, nil %>
+        </div>
+        <div class="days-block">
+          <label>Mon </label><%= check_box :deal, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('1')}, 1, nil %>
+        </div>  
+        <div class="days-block">
+          <label>Tue </label><%= check_box :deal, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('2')}, 2, nil %>
+        </div>  
+        <div class="days-block">
+          <label>Wed </label><%= check_box :deal, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('3')}, 3, nil %>
+        </div>  
+        <div class="days-block">
+          <label>Thu </label><%= check_box :deal, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('4')}, 4, nil %>
+        </div>    
+        <div class="days-block">
+          <label>Fri </label><%= check_box :deal, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('5')}, 5, nil %>
+        </div>  
+        <div class="days-block">
+          <label>Sat </label><%= check_box :deal, :days, {multiple: true, checked: f.object.days && f.object.days.split(',').include?('6')}, 6, nil %>
+        </div>  
+      </div>  
+    </div>
+  </div>  
+</div> 

@@ -1,0 +1,12 @@
+<div class="col-md-6 input_outlets">
+	<% if outlets %>
+	    <div class="form-group">
+	      <%= f.label :outlet_ids, 'Outlets',class: "col-sm-3 control-label" %>
+	        <div class="col-sm-8">
+	          <% outlets.each do |outlet| %>
+	            <%= check_box :deal, :outlet_ids, {multiple: true}, outlet.id, nil %> <label><%= outlet.locality %></label><br>
+	          <% end %>
+	        </div>
+	    </div>
+	<% end %>
+</div>

@@ -1,0 +1,5 @@
+<% stores.each do |store| %>
+  <tr class="row_sales_user_store_<%= store.id %>">
+    <%= render 'store_row', store: store %>
+  </tr>
+<% end %>

@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-6">
+    <%= paginate api_details, :params => { controller: :api_details, action: :index }, remote: true %>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Device Type</th>
+        <th>Api Version</th>
+        <th>App Version</th>
+        <th>Update Type</th>
+        <th class="col-md-2 action">Action</th>
+      </tr>
+    </thead>
+    
+   <tbody class="tbody-list">
+      <tbody class="tbody-list">
+        <%= render 'api_details/listing/row', api_details: @api_details %>
+      </tbody> 
+    </tbody>
+  </table>
+  <% unless api_details.present? %>
+    <span class="badge alert-danger">Results not found</span>
+  <% end %>
+</div>

@@ -1,0 +1,35 @@
+I"Á(function() {
+  $(document).ready(function() {
+    var formGmapsCompleter, showGmapsCompleter;
+    formGmapsCompleter = function(lat, lng, _mapElem) {
+      var completer;
+      completer = new FandyGmapsCompleter({
+        inputField: '.form-control.gmaps-input-address',
+        errorField: '#gmaps-error',
+        mapElem: _mapElem,
+        pos: [lat, lng],
+        zoomLevel: 2,
+        debugOn: false,
+        assist: GmapCompleterAssist
+      });
+      return completer.autoCompleteInit({
+        country: 'us'
+      });
+    };
+    showGmapsCompleter = function(lat, lng, _mapElem) {
+      return new FandyGmapsCompleter({
+        inputField: '',
+        errorField: '',
+        mapElem: _mapElem,
+        pos: [lat, lng],
+        zoomLevel: 8,
+        debugOn: false,
+        assist: GmapCompleterAssist
+      });
+    };
+    window.showGmapsCompleter = showGmapsCompleter;
+    return window.formGmapsCompleter = formGmapsCompleter;
+  });
+
+}).call(this);
+:ET

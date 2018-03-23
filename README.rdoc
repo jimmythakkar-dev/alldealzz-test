@@ -1,0 +1,8 @@
+== Admin Fandy
+-------
+
+Error : Could not run the `identify` command. Please install ImageMagick.
+Reason : paperclip
+Resolved : 
+    1) Mac OS : gem install image_magick
+                brew install imagemagick

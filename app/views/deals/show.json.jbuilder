@@ -1,0 +1,1 @@
+json.extract! @deal, :id, :main_line, :description, :notification_text, :notification_radius, :gender, :is_age_limit, :age_from, :age_to, :publish, :publish_date, :duration, :notification_time_from, :notification_time_to, :days, :deal_category_id, :created_at, :updated_at

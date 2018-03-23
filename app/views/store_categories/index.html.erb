@@ -1,0 +1,37 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Store Categories") %></div>
+  <div class="col-md-3 actions">
+    <%= link_to 'New Store category', new_store_category_path, class: "btn btn-default btn-lg btn-block" %>
+  </div>
+</div>
+
+<ol class="breadcrumb">
+  <%= li_link_to 'Home', root_path %>
+  <%= li_link_to 'Store Categories', nil, class: "active" %>
+</ol>
+
+<div class="table-responsive">
+  <!-- <table class="table table-hover table-bordered table-condensed"> -->
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th class="action">Action</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @store_categories.each do |store_category| %>
+        <tr>
+          <td><%= store_category.name %></td>
+          <td><%= store_category.description %></td>
+          <td class="action">
+            <%= link_to 'Edit', edit_store_category_path(store_category), class: 'btn btn-primary btn-sm' %>
+            <%#= link_to 'Destroy', store_category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>  

@@ -1,0 +1,45 @@
+// Place all the styles related to the Stores controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.dashboard-tiles.store_tiles_card {
+	position: relative;
+	margin-bottom: 24px;
+	background-color: #ffffff;
+	color: #313534;
+	border-radius: 2px;
+	-webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+	box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.33);
+	-webkit-transition: all 0.2s ease;
+	-moz-transition: all 0.2s ease;
+	-o-transition: all 0.2s ease;
+	transition: all 0.2s ease;
+	z-index:0;
+}
+
+.dashboard-tiles.store_tiles_card:hover{
+	z-index:1000;
+	box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+	-webkit-box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+	-moz-box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+}
+
+.dashboard-tiles.store_tiles_card .alert.alert-callout {
+	position: relative;
+	text-align:center;
+	background: #ffffff;
+	color: #313534;
+	border-radius: 3px;
+	border-color: rgba(83, 88, 88, 0.15);
+	height: 200px;
+}
+
+
+.dashboard-tiles.store_tiles_card .no-margin {
+	margin: 0 !important;
+}
+
+.dashboard-tiles.store_tiles_card .text-xl {
+	font-size: 22px;
+}
+

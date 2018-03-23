@@ -1,0 +1,196 @@
+// For footer alignment
+body { background: #E7E7E7;}
+.new_globel_register_store {background: #E7E7E7;  padding-bottom: 70px;}
+
+// Body Main board
+.main{
+  padding-bottom: 5em;
+}
+
+//--------- dashboard forms start
+
+.dashboard-forms.login-form p{margin:0;
+	padding:0;
+	border:0;
+	font-size:100%;
+	font:inherit;
+	vertical-align:baseline;}
+
+.dashboard-forms.login-form {
+	background:#fff;
+	width:35%;
+	margin:1% auto 1% auto;
+ 	position: relative;
+}
+
+.dashboard-forms.login-form form {
+	padding:15% 2.5em;
+}
+.dashboard-forms.login-form input.submit, .dashboard-forms.login-form a.submit{
+	float:right;
+	font-size:18px;
+	display: inline-block;
+	font-weight:600;
+	color: #fff;
+	transition: 0.1s all;
+	-webkit-transition: 0.1s all;
+	-moz-transition: 0.1s all;
+	-o-transition: 0.1s all;
+	cursor: pointer;
+	outline: none;
+	padding:15px 10px;
+	margin-top:3px;
+	font-family: 'Open Sans', sans-serif;
+	width:40%;
+	border:none;
+	border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-moz-border-radius: 0.3em;
+	background: #e27f00;
+}
+.dashboard-forms.login-form a.submit {width:55%;}
+
+.dashboard-forms.login-form .p-container{
+	margin-top:2em;
+}
+
+/*-----start-responsive-design------*/
+@media (max-width:1024px){
+  .dashboard-forms.login-form  {
+		margin:8% auto 0;
+		width:45%;
+	}
+}
+@media (max-width:768px){
+	.dashboard-forms.login-form  {
+		margin:12% auto 0;
+		width:57%;
+	}
+}
+@media (max-width:640px){                                  
+  .dashboard-forms.login-form  {
+		margin:13% auto 0;
+		width:70%;
+	}
+}
+@media (max-width:480px){                                  
+	.dashboard-forms.login-form  {
+		margin:20% auto 0;
+		width:90%;
+	}
+}
+@media (max-width:320px){                                  
+  .dashboard-forms.login-form  {
+		margin:20% auto 0;
+		width:95%;
+	}
+	.dashboard-forms.login-form form{
+		padding:19% 1.5em; 
+	}
+	.dashboard-forms.login-form input[type="submit"]{
+		float:none;
+		font-size: 15px;
+		padding: 10px 10px;
+		width: 40%;
+		margin-left: 28%;
+	}
+	.dashboard-forms.login-form .p-container {
+		margin-top: 0;
+	}
+}
+
+//-------- dashboard forms end
+
+body.mainboard.light{
+  background: image-url('mainboard-london.jpg') center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+ 	position:relative;
+ 	font-family: 'Open Sans', sans-serif;
+}
+
+body.mainboard.light .navbar.navbar-fixed-bottom, body.mainboard.light .navbar.navbar-default{
+	background: none;
+  border: none;
+}
+body.mainboard.light .navbar.navbar-fixed-bottom p,  body.mainboard.light .navbar.navbar-default a{color: white;}
+
+
+// Navigation head brand image
+div.navbar-header a.navbar-brand.brand-image{padding: 3px;margin-left:0px;}
+div.navbar-header a.navbar-brand.brand-image img{height: 45px;width: 85px;}
+div.navbar-header a.navbar-brand{font-size: 20px;}
+
+.row.title_header {margin: 10px;}
+.row.title_header .actions{float: right;}
+.row.title_header .actions a{float: right; margin-top: 20px;}
+
+.row.notification_header { margin-top: 20px; margin-bottom: 20px; }
+
+table.table.table-hover{margin-top: 10px;}
+table.table.table-hover tbody td.action{text-align: center;}
+table.table.table-hover thead th.action{text-align: center;}
+
+form.form-horizontal.deal_form .days-block{float: left; margin: 5px; width: 30px;}
+form.form-horizontal.deal_form .days-block input{margin-left: 5px;}
+
+.form-input#gmaps-input-canvas, .gmaps-show#gmaps-show-canvas {
+  height: 300px;
+  width: 65%;
+  margin-left: 163px;
+  border: 1px solid #999;
+  -moz-box-shadow:    0px 0px 5px #ccc;
+  -webkit-box-shadow: 0px 0px 5px #ccc;
+  box-shadow:         0px 0px 5px #ccc;
+}
+
+.gmaps-show#gmaps-show-canvas {
+  margin-right: 50px;
+  margin-left: 50px;
+}
+
+#gmaps-error {
+  color: #cc0000;
+}
+
+
+// Store > Deshboard
+.row.margin-bottom-15{margin-bottom: 15px;}
+
+// Store > Form
+.form-group .input-group.padding-15{padding-left:15px; padding-right:15px;}
+
+// Admin Main Head
+.row.main-head h3{color: #E7E7E7; margin-bottom: 30px; font-size: 40px;}
+.row.main-head .col-md-offset-mid{margin-left: 37%;}
+
+// Admin Main Head - Logo
+.navbar.navbar-default .navbar-header .navbar-logo.logo-medium{margin-top: 10px;}
+.navbar.navbar-default.admin-header .container-fluid{}
+.navbar.navbar-default.admin-header .container-fluid a{color: #337ab7;}
+.navbar.navbar-default.admin-header .container-fluid .dropdown-menu .active a{color: white;}
+
+// Admin footer
+.navbar.navbar-default.navbar-fixed-bottom{width:100%;}
+.navbar.navbar-default.navbar-fixed-bottom .container-fluid.col-md-offset-mid{margin-left:30%;}
+.navbar.navbar-default.navbar-fixed-bottom.admin-footer p{
+	color: #337ab7 !important;
+  text-decoration: none;
+}
+.navbar.navbar-default.navbar-fixed-bottom.admin-footer div.container-fluid p{
+	float: none;
+}
+
+// Devise > 
+a.devise_session_links{color: #E7E7E7;}
+
+.price-unallowed {
+  display: none;
+}
+
+// Feed form
+.deal_type.deal_type_2 .input-group {
+	float: left;
+}

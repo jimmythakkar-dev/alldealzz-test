@@ -1,0 +1,10 @@
+<% if @sub_categories.present? %>
+  <%= label_tag :deals, "Sub Categories", class: "col-sm-3 control-label" %>
+  <div class="col-sm-8">
+    <% @sub_categories.each do |category| %>
+      <label>
+        <%= check_box :deal, :sub_deal_category_ids, { multiple: true, checked: @sub_deal_categories.include?(category)}, category.id, nil %> <%= category.name %>
+      </label></br>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,6 @@
+var element = $("tr.store_listing_row_<%= @store.id %>");
+element.html("<%= escape_javascript(render(partial: 'stores/listing/row', locals: {store: @store})) %>");
+if(<%= !@sucess %>){
+  alert('Store status not changed.');
+};
+input_button_on_off_status_change(element.find('input.button-on-off'));

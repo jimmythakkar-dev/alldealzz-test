@@ -1,0 +1,34 @@
+
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $('input.button-on-off').bootstrapToggle();
+    $('input.button-approved-unapproved').bootstrapToggle();
+    
+    $('input.button-on-off').change(function(){
+      if (confirm("Are you sure?")) {
+        $.ajax({
+          type: "POST",
+          url: "/stores/<%= store.id %>/deals/"+$(this).val()+"/change_status"
+        });
+      }
+      else {
+        if($(this).is(':checked')) { $(this).parent('div').addClass('off'); }
+        else { $(this).parent('div').removeClass('off'); }
+      }  
+    });
+
+    $('input.button-approved-unapproved').change(function(){
+      if (confirm("Are you sure?")) {
+        $.ajax({
+          type: "POST",
+          url: "/stores/<%= store.id %>/deals/"+$(this).val()+"/change_approver"
+        });
+      }
+      else {
+        if($(this).is(':checked')) { $(this).parent('div').addClass('off'); }
+        else { $(this).parent('div').removeClass('off'); }
+      }  
+    });
+  });
+</script>

@@ -1,0 +1,66 @@
+<% status = (transaction_detail.end_user_used_deal.status == 3 ? "Refunded" : transaction_detail.end_user_used_deal.status == 0 ? "False" : (transaction_detail.end_user_used_deal.status == 1 ? "Redeemed" : "Self-Redeemed")) rescue "False" %>
+<td><b><%= transaction_detail.id %></b></td>
+<td class="col-md-1"><%= transaction_detail.payu_id %></td>
+<td class="col-md-1"><%= transaction_detail.total_amount %></td>
+<td class="col-md-1"><%= transaction_detail.deal.discounted_price.to_f rescue "False" %></td>
+<td class="col-md-1"><%= transaction_detail.deal.store.name rescue "False" %></td>
+<td class="col-md-1"><%= status %></td>
+<td class="col-md-1"><%= transaction_detail.deal.commission_percent rescue "False" %></td>
+<td class="col-md-1"><%= transaction_detail.deal.internet_handling_charges rescue "False" %></td>
+<td class="col-md-1"><%= transaction_detail.deal.settlement_amount(transaction_detail.quantity) rescue "False" %></td>
+<td class="col-md-1"><%= transaction_detail.bank_ref_id %></td>
+<%
+  alert_payment_status = case transaction_detail.payment_status
+  when TransactionDetail::SettlementStatus[:pending]
+  	'alert-info'
+  when TransactionDetail::SettlementStatus[:success]
+  	'alert-success'
+  when TransactionDetail::SettlementStatus[:failed]
+  	'alert-danger'
+  else
+  	'alert-default'
+  end 
+%>
+
+<td class="col-md-1">
+  <% if status == "Redeemed" %>
+    <% if transaction_detail.end_user_used_deal.try(:self_redeemed_at).present? %>
+      <%= transaction_detail.end_user_used_deal.try(:self_redeemed_at).strftime("%Y-%m-%d %H:%M") rescue '' %>
+    <% else %>
+      <%= transaction_detail.end_user_used_deal.try(:booking_code).try(:redeemed_at).strftime("%Y-%m-%d %H:%M") rescue '' %>
+    <% end %>
+  <% elsif status == "Self-Redeemed" %>
+    <%= transaction_detail.end_user_used_deal.try(:self_redeemed_at).strftime("%Y-%m-%d %H:%M") rescue '' %>
+  <% else %>
+
+  <% end %>
+</td>
+
+<%
+  alert_settlement_status = case transaction_detail.settlement_status
+  when TransactionDetail::SettlementStatus[:pending]
+  	'alert-info'
+  when TransactionDetail::SettlementStatus[:success]
+  	'alert-success'
+  when TransactionDetail::SettlementStatus[:failed]
+  	'alert-danger'
+  else
+  	'alert-default'
+  end
+%>
+<td class="col-md-1 action">
+	<span class="badge <%= alert_settlement_status %>">
+	  <%= TransactionDetail::PaymentStatus.key(transaction_detail.settlement_status) %>
+	</span>
+</td>
+<td class="col-md-1"><%= transaction_detail.settlement_date && transaction_detail.settlement_date.strftime("%Y-%m-%d %H:%M") %></td>
+<td class="col-md-1"><%= transaction_detail.created_at && transaction_detail.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+<td class="col-md-4 action">
+  <%= link_to 'Edit', edit_transaction_detail_path(transaction_detail), class: 'btn btn-primary btn-sm'  %>
+  <% if transaction_detail.settlement_status != TransactionDetail::SettlementStatus[:success] %>
+  		<%= link_to 'Settlement', settlement_transaction_detail_path(transaction_detail), 
+        remote: true, method: :post, class: 'btn btn-primary btn-sm' %>
+  <% end %>      
+  <%= link_to 'Unsettlement', unsettlement_transaction_detail_path(transaction_detail),
+        remote: true, method: :post, class: 'btn btn-primary btn-sm' %>      
+</td>

@@ -1,0 +1,31 @@
+<td><%= booking_code.coupon_code %></td>
+<td><%= booking_code.try(:end_user_used_deal).try(:transaction_detail_id) %></td>
+<td><%= booking_code.end_user.try(:profile_name) %></td>
+<td><%= booking_code.redeemed_at.strftime("%Y-%m-%d %H:%M") rescue '' %></td>
+<td>
+  <%-if booking_code.try(:end_user_used_deal).try(:used_status)%>
+    <span class="badge alert-success">Yes</span>
+  <%-else %>
+    <span class="badge alert-danger">No</span>
+  <%-end %>
+</td>
+<td class='action'>
+  <%#-if !booking_code.redeemed? %>
+    <%= link_to 'Redeem', 'javascript:void(0)', class: 'btn btn-primary btn-sm redeem-action' %>
+  <%#-end %>  
+</td>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("tr.row_booking_code_"+<%= booking_code.id %>).find('a.redeem-action').on('click', function(){
+      $.ajax({
+        type: "POST",
+        url: "/api/v1/merchant/redeems/deal",
+        data: { merchant_user_id: "<%= @merchant_user.id %>", redeem_code: "<%= booking_code.coupon_code %>"}
+      })
+      .fail(function( data, status, err ) {
+        alert( "Code already redeemed : " + err );
+      });
+    });
+  });
+</script>

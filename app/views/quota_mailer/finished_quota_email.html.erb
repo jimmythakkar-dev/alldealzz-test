@@ -1,0 +1,14 @@
+<p>Hello <%= @store.name %>,</p>
+
+<p>We are glad to see you on <%= Settings.app_name %>.<br/>
+Please find following details to login to <%= Settings.app_name %>.
+</p>
+
+<p>
+Link :  <%= mail_to @url %><br/>	
+Email : <%= mail_to @user.email %><br/>
+User name : <%= @user.username %><br/>
+Password : <%= @password %><br/>
+Business name : <%= @store.name %><br/>
+<%= "Person name : #{@store.contact_persone}" if @store.contact_persone.present?  %><br/>
+</p>

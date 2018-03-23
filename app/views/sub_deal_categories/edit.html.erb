@@ -1,0 +1,11 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@store, "Edit Deal Category") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= li_link_to 'Home', root_path %>
+  <%= li_link_to 'Deal Categories', deal_categories_path %>
+  <%= li_link_to "Edit Deal Category ( #{@deal_category.name} )", deal_category_sub_deal_categories_path(@deal_category), class: "active" %>
+</ol>
+
+<%= render 'form' %>

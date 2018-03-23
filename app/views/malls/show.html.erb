@@ -1,0 +1,113 @@
+<div class="row title_header">
+  <div class="col-md-8"><%= title_header(@mall, "Mall") %></div>
+</div>
+
+<ol class="breadcrumb">
+  <%= mall_breadcrumb_list(@mall, 'Mall Information') %> 
+</ol>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-11">
+        <h4>Mall :  <span class="label label-default"><%= @mall.name.capitalize %></span></h4>
+      </div>  
+      <div class="col-md-1">
+        <%= link_to 'Edit', edit_mall_path(@mall), class: "btn btn-default" %>
+      </div>
+    </div>
+  </div>
+  <div class="panel-footer">
+    <div class="row">
+      <div class="col-md-6">
+        <p>
+          <strong>Email:</strong>
+          <%= @mall.user.email %>
+        </p>
+        <p>
+          <strong>Username:</strong>
+          <%= @mall.user.username %>
+        </p>
+
+        <p>
+          <strong>Phone:</strong>
+          <%= @mall.phone %>
+        </p>
+        <p>
+          <strong>Contact Person:</strong>
+          <%= @mall.contact_persone %>
+        </p>
+        <p>
+          <strong>Status:</strong>
+          <%-if @mall.status %>
+            <span class="badge alert-success">On</span>
+          <%-else %>
+            <span class="badge alert-danger">Off</span>
+          <%-end %>
+        </p>
+        <p>
+          <strong>Remaining days:</strong>
+          <%- if @mall.package_days.present? %>
+            <%= @mall.package_days %> Days
+          <% end -%>
+        </p>
+        <p>
+          <strong>Address:</strong>
+          <%= @mall.address %>
+        </p>
+        <p>
+          <strong>Contact (Store):</strong>
+          <%= @mall.contact_phone %>
+        </p>
+        <p>
+          <strong>Logo:</strong>
+          <%- if @mall.logo.present? %>
+            <img src='<%= @mall.logo.url %>' width='100' height='100'> 
+          <% end -%>
+        </p>
+      </div>
+      <div class="col-md-6">
+        <!-- <p>
+          <strong>Store category:</strong>
+          <%#= @mall.store_category.try(:name) %>
+        </p> -->
+        <p>
+          <strong>City:</strong>
+          <%= @mall.current_city.try(:name) %>
+        </p>
+        <p>
+          <strong>Location:</strong>
+          <%= @mall.location %>
+        </p>
+        <p>
+          <strong>Location:</strong>
+          <div class="gmaps-group">
+            <p class='gmaps-show' id='gmaps-show-canvas'></p> 
+          </div>
+        </p>
+        <p>
+          <strong>Radius:</strong>
+          <%= @mall.radius %> Kms
+        </p>
+      </div>
+    </div>
+
+    
+    <div class="row">
+      <div class="col-md-6">
+        
+      </div>
+      <div class="col-md-6">
+        
+      </div>
+    </div> 
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function () {
+    lat = <%= @mall.latitude %>;
+    lng = <%= @mall.longitude %>;
+    map_elem = '#gmaps-show-canvas';
+    showGmapsCompleter(lat, lng, map_elem);
+  });
+</script>
